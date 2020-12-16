@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXToggleButton?>
+<?import com.jfoenix.controls.JFXTogglePane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="viewLoadedPane" prefHeight="834.0" prefWidth="1087.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.security.CreateuserController">
+   <children>
+      <Label layoutX="319.0" layoutY="14.0" text="Création d'utilisateur" textAlignment="CENTER" textFill="#545871">
+         <font>
+            <Font name="Roboto Bold" size="48.0" />
+         </font>
+      </Label>
+      <Label layoutX="185.0" layoutY="118.0" text="Client" />
+      <JFXTogglePane layoutX="236.0" layoutY="98.0" prefHeight="60.0" prefWidth="134.0">
+         <children>
+            <JFXToggleButton fx:id="userChoiceToggleButton" onAction="#setVisibleOrNotEmployeFields" prefHeight="60.0" prefWidth="134.0" text="Employé" textAlignment="CENTER" />
+         </children>
+      </JFXTogglePane>
+      <Label fx:id="clientNumberOrMatriculeSearchTextFieldLabel" layoutX="135.0" layoutY="201.0" text="Numéro du client">
+         <font>
+            <Font name="Roboto Bold Italic" size="18.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="clientNumberOrMatriculeSearchTextField" layoutX="303.0" layoutY="182.0" prefHeight="23.0" prefWidth="161.0" promptText="NC ou Mat">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </JFXTextField>
+      <JFXButton fx:id="clientNumberOrMatriculeSearchButton" buttonType="RAISED" layoutX="490.0" layoutY="186.0" onAction="#validateClientNumberOrMatriculeSearchTextField" stylesheets="@../style/style.css" text="Search">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </JFXButton>
+      <GridPane fx:id="textFieldsGridPane" layoutX="88.0" layoutY="255.0" prefHeight="493.0" prefWidth="881.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="436.0" minWidth="10.0" prefWidth="298.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="592.0" minWidth="10.0" prefWidth="583.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+         <children>
+            <JFXTextField fx:id="nameTextField" prefHeight="31.0" prefWidth="554.0" GridPane.columnIndex="1">
+               <GridPane.margin>
+                  <Insets left="10.0" right="10.0" />
+               </GridPane.margin>
+            </JFXTextField>
+            <JFXTextField fx:id="surnameTextField" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets left="10.0" right="10.0" />
+               </GridPane.margin>
+            </JFXTextField>
+            <JFXTextField fx:id="emailTextField" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets left="10.0" right="10.0" />
+               </GridPane.margin>
+            </JFXTextField>
+            <JFXTextField fx:id="numberTextField" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets left="10.0" right="10.0" />
+               </GridPane.margin>
+            </JFXTextField>
+            <JFXTextField fx:id="serviceTextField" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="4">
+               <GridPane.margin>
+                  <Insets left="10.0" right="10.0" />
+               </GridPane.margin>
+            </JFXTextField>
+            <JFXTextField fx:id="loginTextField" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="5">
+               <GridPane.margin>
+                  <Insets left="10.0" right="10.0" />
+               </GridPane.margin>
+            </JFXTextField>
+            <JFXPasswordField fx:id="passwordTextField" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="6">
+               <GridPane.margin>
+                  <Insets left="10.0" right="10.0" />
+               </GridPane.margin>
+            </JFXPasswordField>
+            <Label fx:id="nameTextFieldLabel" alignment="CENTER" prefHeight="29.0" prefWidth="512.0" text="Nom" textAlignment="CENTER" textFill="#545871">
+               <font>
+                  <Font name="Roboto Bold Italic" size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="surnameTextFieldLabel" alignment="CENTER" prefHeight="29.0" prefWidth="385.0" text="Prénom(s)" textFill="#545871" GridPane.rowIndex="1">
+               <font>
+                  <Font name="Roboto Bold Italic" size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="emailTextFieldLabel" alignment="CENTER" prefHeight="29.0" prefWidth="401.0" text="Email" textFill="#545871" GridPane.rowIndex="2">
+               <font>
+                  <Font name="Roboto Bold Italic" size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="numberTextFieldLabel" alignment="CENTER" prefHeight="29.0" prefWidth="337.0" text="Téléphone" textFill="#545871" GridPane.rowIndex="3">
+               <font>
+                  <Font name="Roboto Bold Italic" size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="serviceTextFieldLabel" alignment="CENTER" prefHeight="29.0" prefWidth="306.0" text="Service" textFill="#545871" visible="false" GridPane.rowIndex="4">
+               <font>
+                  <Font name="Roboto Black Italic" size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="loginTextFieldLabel" alignment="CENTER" prefHeight="29.0" prefWidth="298.0" text="Login" textAlignment="CENTER" textFill="#545871" visible="false" GridPane.rowIndex="5">
+               <font>
+                  <Font name="Roboto Bold Italic" size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="passwordTextFieldLabel" alignment="CENTER" prefHeight="29.0" prefWidth="293.0" text="Password" textAlignment="CENTER" textFill="#545871" visible="false" GridPane.rowIndex="6">
+               <font>
+                  <Font name="Roboto Bold Italic" size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="adressRoadTextFieldLabel" alignment="CENTER" prefHeight="29.0" prefWidth="299.0" text="Adresse Rue" textFill="#545871" GridPane.rowIndex="4">
+               <font>
+                  <Font name="Roboto Bold Italic" size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="adressDistrictTextFieldLabel" alignment="CENTER" prefHeight="29.0" prefWidth="297.0" text="Adresse Quartier" textFill="#545871" GridPane.rowIndex="5">
+               <font>
+                  <Font name="Roboto Black Italic" size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="adressTownTextFieldLabel" alignment="CENTER" prefHeight="29.0" prefWidth="301.0" text="Adresse Ville" textFill="#545871" GridPane.rowIndex="6">
+               <font>
+                  <Font name="Roboto Black Italic" size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="adressDetailsTextFieldLabel" alignment="CENTER" prefHeight="29.0" prefWidth="310.0" text="Adresse Détails" textFill="#545871" GridPane.rowIndex="7">
+               <font>
+                  <Font name="Roboto Black Italic" size="24.0" />
+               </font>
+            </Label>
+            <JFXTextField fx:id="adressRoadTextField" GridPane.columnIndex="1" GridPane.rowIndex="4">
+               <GridPane.margin>
+                  <Insets left="10.0" right="10.0" />
+               </GridPane.margin>
+            </JFXTextField>
+            <JFXTextField fx:id="adressDistrictTextField" GridPane.columnIndex="1" GridPane.rowIndex="5">
+               <GridPane.margin>
+                  <Insets left="10.0" right="10.0" />
+               </GridPane.margin>
+            </JFXTextField>
+            <JFXTextField fx:id="adressTownTextField" GridPane.columnIndex="1" GridPane.rowIndex="6">
+               <GridPane.margin>
+                  <Insets left="10.0" right="10.0" />
+               </GridPane.margin>
+            </JFXTextField>
+            <JFXTextField fx:id="adressDetailsTextField" GridPane.columnIndex="1" GridPane.rowIndex="7">
+               <GridPane.margin>
+                  <Insets left="10.0" right="10.0" />
+               </GridPane.margin>
+            </JFXTextField>
+         </children>
+      </GridPane>
+      <Label fx:id="creationSuccesOrFailureLabel" alignment="CENTER" layoutX="135.0" layoutY="748.0" prefHeight="21.0" prefWidth="817.0" textAlignment="CENTER">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <JFXButton buttonType="RAISED" layoutX="969.0" layoutY="512.0" prefHeight="31.0" prefWidth="98.0" stylesheets="@../style/style.css" text="Ajouter" visible="false">
+         <graphic>
+            <ImageView>
+               <image>
+                  <Image url="@../images/add-icon.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <JFXButton fx:id="createUserButton" buttonType="RAISED" layoutX="917.0" layoutY="795.0" onAction="#createUser" style="-fx-background-color: #21E02A;" stylesheets="@../style/style.css" text="Créer">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="updateUserButton" buttonType="RAISED" layoutX="803.0" layoutY="795.0" onAction="#updateUser" style="-fx-background-color: yellow;" stylesheets="@../style/style.css" text="Modifier">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </JFXButton>
+      <Label fx:id="clientNumberOrMatriculeSearchErrorLabel" layoutX="276.0" layoutY="234.0" prefHeight="21.0" prefWidth="300.0" textFill="RED" />
+      <JFXButton fx:id="modifyUserButton" buttonType="RAISED" layoutX="583.0" layoutY="186.0" onAction="#enableTextfieldsGridPaneAndUpdateUserButton" style="-fx-background-color: #E07F2B;" stylesheets="@../style/style.css" text="Modifier Utilsateur" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </JFXButton>
+   </children>
+</AnchorPane>

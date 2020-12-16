@@ -1,0 +1,44 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Dec 11, 2020, 3:47:52 PM
+    Author     : Albéric
+*/
+
+.textfield{
+    width: 608px;
+    height: 56px;
+    -fx-border-radius: 5px;
+    -fx-background-color: #fff;
+    -fx-border-color: #e6dbda;
+    transition: -fx-border-color .5s ease-in-out;
+}
+
+.textfield:focus {
+    -fx-border-color : #000;
+}
+
+.button {
+    width: 256px;
+    height: 56px;
+    -fx-border-radius: 28px;
+    -fx-background-color: #dadbe6;
+}
+
+.button2 {
+    -fx-border-radius: 28px;
+    -fx-background-color: #fff;
+    transition: -fx-background-color 2s linear 1s;
+
+}
+
+.button2:pressed {
+    -fx-background-color: #7af04500;
+}
+
+.button2:hover {
+    -fx-background-color: #7af045;
+}

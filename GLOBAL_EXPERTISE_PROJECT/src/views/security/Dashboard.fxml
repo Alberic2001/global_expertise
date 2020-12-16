@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="900.0" prefWidth="1617.0" style="-fx-background-color: #f7eceb;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.security.DashboardController">
+   <children>
+      <MenuBar fx:id="menuBar" prefHeight="23.0" prefWidth="1617.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="User Settings">
+            <items>
+                  <MenuItem mnemonicParsing="false" text="Lister" />
+              <MenuItem mnemonicParsing="false" text="Creer ou Modifier">
+                     <graphic>
+                        <ImageView>
+                           <image>
+                              <Image url="@../images/add-user.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></MenuItem>
+                  <MenuItem mnemonicParsing="false" text="Supprimer" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Stock">
+            <items>
+                  <MenuItem mnemonicParsing="false" text="Lister" />
+                  <MenuItem mnemonicParsing="false" text="Créer Catégorie" />
+              <MenuItem mnemonicParsing="false" text="Créer Produit" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Commande">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Editer" />
+                  <MenuItem mnemonicParsing="false" text="Annuler" />
+                  <MenuItem mnemonicParsing="false" text="Lister" />
+            </items>
+          </Menu>
+            <Menu mnemonicParsing="false" text="Livraison">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Lister " />
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Facture">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Pro-Forma" />
+              </items>
+            </Menu>
+        </menus>
+      </MenuBar>
+      <AnchorPane layoutY="32.0" prefHeight="886.0" prefWidth="501.0" style="-fx-background-color: #545871;">
+         <children>
+            <Label layoutX="187.0" layoutY="69.0" text="Global Expertise" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="Roboto Light" size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="35.0" layoutY="92.0" text="Username:" textFill="WHITE">
+               <font>
+                  <Font name="Roboto Bold" size="22.0" />
+               </font>
+            </Label>
+            <Label layoutX="35.0" layoutY="128.0" text="Service:" textFill="WHITE">
+               <font>
+                  <Font name="Roboto Bold" size="22.0" />
+               </font>
+            </Label>
+            <Label fx:id="connectedUserUsername" layoutX="165.0" layoutY="92.0" prefHeight="28.0" prefWidth="302.0" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="Roboto" size="22.0" />
+               </font>
+            </Label>
+            <Label fx:id="connectedUserService" layoutX="133.0" layoutY="128.0" prefHeight="28.0" prefWidth="302.0" textFill="WHITE">
+               <font>
+                  <Font name="Roboto" size="22.0" />
+               </font>
+            </Label>
+            <JFXButton fx:id="logingOutButton" buttonType="RAISED" layoutX="63.0" layoutY="831.0" onAction="#closeAppThenLaunchSignInView" prefHeight="31.0" prefWidth="376.0" style="-fx-background-color: #f7eceb;" stylesheets="@../style/style.css" text="Log Out" textAlignment="CENTER" textFill="#545871">
+               <font>
+                  <Font name="Roboto Bold" size="22.0" />
+               </font>
+               <graphic>
+                  <ImageView>
+                     <image>
+                        <Image url="@../images/logout.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <tooltip>
+                  <Tooltip text="Click to log out" textAlignment="CENTER">
+                     <font>
+                        <Font name="Roboto Italic" size="11.0" />
+                     </font>
+                  </Tooltip>
+               </tooltip>
+            </JFXButton>
+            <AnchorPane fx:id="adminFunctionsPane" layoutX="51.0" layoutY="166.0" prefHeight="198.0" prefWidth="400.0">
+               <children>
+                  <JFXButton fx:id="userCreateButton" buttonType="RAISED" layoutX="51.0" layoutY="48.0" onAction="#loadUserCreationView" prefHeight="31.0" prefWidth="302.0" ripplerFill="WHITE" styleClass="button2" stylesheets="@../style/style.css" text="Créer Utilisateur">
+                     <font>
+                        <Font name="Roboto Bold Italic" size="15.0" />
+                     </font>
+                     <graphic>
+                        <ImageView>
+                           <image>
+                              <Image url="@../images/add-user.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="categoryandProductCreateButton" buttonType="RAISED" layoutX="51.0" layoutY="86.0" onAction="#loadCategoryandProductCreationView" prefHeight="31.0" prefWidth="302.0" ripplerFill="WHITE" styleClass="button2" stylesheets="@../style/style.css" text="Créer Catégorie et Produit">
+                     <font>
+                        <Font name="Roboto Bold Italic" size="15.0" />
+                     </font>
+                     <graphic>
+                        <ImageView>
+                           <image>
+                              <Image url="@../images/stock.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="categoriesAndProductsListing" buttonType="RAISED" layoutX="52.0" layoutY="124.0" onAction="#loadCategoriesAndProductsListingView" prefHeight="31.0" prefWidth="302.0" ripplerFill="WHITE" styleClass="button2" stylesheets="@../style/style.css" text="Lister Catégories et Produits">
+                     <font>
+                        <Font name="Roboto Bold Italic" size="15.0" />
+                     </font>
+                     <graphic>
+                        <ImageView>
+                           <image>
+                              <Image url="@../images/category-list.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <Label layoutX="170.0" layoutY="14.0" prefHeight="31.0" prefWidth="65.0" text="Stock" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="Roboto Bold" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="commandFunctionsPane" layoutX="51.0" layoutY="377.0" prefHeight="198.0" prefWidth="400.0">
+               <children>
+                  <JFXButton fx:id="commandListingButton" buttonType="RAISED" layoutX="51.0" layoutY="48.0" onAction="#loadCommandListingView" prefHeight="31.0" prefWidth="302.0" ripplerFill="WHITE" styleClass="button2" stylesheets="@../style/style.css" text="Lister Commandes">
+                     <font>
+                        <Font name="Roboto Bold Italic" size="15.0" />
+                     </font>
+                     <graphic>
+                        <ImageView>
+                           <image>
+                              <Image url="@../images/order-list.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="commandEditButton" buttonType="RAISED" layoutX="51.0" layoutY="86.0" onAction="#loadCommandEditView" prefHeight="31.0" prefWidth="302.0" ripplerFill="WHITE" styleClass="button2" stylesheets="@../style/style.css" text="Editer Commande">
+                     <font>
+                        <Font name="Roboto Bold Italic" size="15.0" />
+                     </font>
+                     <graphic>
+                        <ImageView>
+                           <image>
+                              <Image url="@../images/order-edit.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="commandCancelButton" buttonType="RAISED" layoutX="51.0" layoutY="124.0" onAction="#loadCommandCancellationView" prefHeight="31.0" prefWidth="302.0" ripplerFill="WHITE" styleClass="button2" stylesheets="@../style/style.css" text="Annuler Commande">
+                     <font>
+                        <Font name="Roboto Bold Italic" size="15.0" />
+                     </font>
+                     <graphic>
+                        <ImageView>
+                           <image>
+                              <Image url="@../images/order-cancel.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="editAndPrintBillButton" buttonType="RAISED" layoutX="51.0" layoutY="162.0" onAction="#loadEditAndPrintingBillView" prefHeight="31.0" prefWidth="302.0" ripplerFill="WHITE" styleClass="button2" stylesheets="@../style/style.css" text="Editer et Imprimer Facture">
+                     <font>
+                        <Font name="Roboto Bold Italic" size="15.0" />
+                     </font>
+                     <graphic>
+                        <ImageView>
+                           <image>
+                              <Image url="@../images/edit-print-bill.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <Label layoutX="135.0" layoutY="7.0" prefHeight="31.0" prefWidth="134.0" text="Commande" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="Roboto Bold" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="PaymentFunctionsPane1" layoutX="51.0" layoutY="587.0" prefHeight="133.0" prefWidth="400.0">
+               <children>
+                  <JFXButton fx:id="establishFinalBill" buttonType="RAISED" layoutX="51.0" layoutY="48.0" onAction="#loadEstablishFinalBillView" prefHeight="31.0" prefWidth="302.0" ripplerFill="WHITE" styleClass="button2" stylesheets="@../style/style.css" text="Etablir Facture Définitive">
+                     <font>
+                        <Font name="Roboto Bold Italic" size="15.0" />
+                     </font>
+                     <graphic>
+                        <ImageView>
+                           <image>
+                              <Image url="@../images/invoice-bill.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="archiveBillButton" buttonType="RAISED" layoutX="51.0" layoutY="86.0" onAction="#loadArchiveBillButtonView" prefHeight="31.0" prefWidth="302.0" ripplerFill="WHITE" styleClass="button2" stylesheets="@../style/style.css" text="Archiver Facture">
+                     <font>
+                        <Font name="Roboto Bold Italic" size="15.0" />
+                     </font>
+                     <graphic>
+                        <ImageView>
+                           <image>
+                              <Image url="@../images/archived-file.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <Label layoutX="143.0" layoutY="7.0" prefHeight="31.0" prefWidth="118.0" text="Paiements" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="Roboto Bold" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="viewLoader" layoutX="516.0" layoutY="42.0" prefHeight="834.0" prefWidth="1087.0" />
+   </children>
+</AnchorPane>
