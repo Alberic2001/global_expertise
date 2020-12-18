@@ -70,6 +70,8 @@ public class DashboardController implements Initializable {
     private AnchorPane viewLoader;
     @FXML
     private JFXButton categoryandProductCreateButton;
+    @FXML
+    private JFXButton listUsersButton;
     /**
      * Initializes the controller class.
      */
@@ -119,6 +121,16 @@ public class DashboardController implements Initializable {
     @FXML
     private void loadCategoriesAndProductsListingView(ActionEvent event) {
     }
+    
+    @FXML
+    private void loadUsersListingView(ActionEvent event) {
+        try {
+            this.loadView("listUsers", viewLoader);
+        } catch (IOException ex) {
+            Logger.getLogger(DashboardController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
 
     @FXML
     private void loadCommandListingView(ActionEvent event) {

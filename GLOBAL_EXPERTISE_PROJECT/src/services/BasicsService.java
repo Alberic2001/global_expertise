@@ -10,6 +10,7 @@ import dao.CategorieDao;
 import dao.ProduitDao;
 import dao.UserDao;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.logging.Level;
@@ -18,6 +19,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Control;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import models.Adresse;
@@ -114,6 +117,24 @@ public class BasicsService {
     public List<User> listUsers(){
         return this.getUserDao().selectAll();
     }
+    
+    public void assignValueToTableColumn(List<TableColumn<User, String>> tblcList, User user){
+        //ListIterator<TableColumn<User, String>> li = tblcList.listIterator();
+        //Field[] fields = user.getClass().getFields();
+        for(Field f : user.getClass().getFields()){
+            f.setAccessible(true);
+        }
+        /*
+        while (li.hasNext()) {
+            li.next().setCellValueFactory(new PropertyValueFactory<>(""));
+        }*/
+        for(int i = 1; i<tblcList.size(); i++){
+            tblcList.get(i).setCellValueFactory(new PropertyValueFactory<>(user.getClass().getFields()[i].getName()));
+        }
+    }
+    
+    
+    
     
     
     public UserDao getUserDao() {

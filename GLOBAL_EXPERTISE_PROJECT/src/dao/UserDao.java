@@ -104,6 +104,8 @@ public class UserDao implements IDao<User> {
             daoMysql.initPS(SQL_SELECT_ALL_EMPLOYES);
         if(type.equals("SQL_SELECT_ALL_CLIENTS"))
             daoMysql.initPS(SQL_SELECT_ALL_CLIENTS);
+        if(type.equals("SQL_SELECT_ALL"))
+            daoMysql.initPS(SQL_SELECT_ALL);
             
         try {
             PreparedStatement ps =daoMysql.getPstm();

@@ -6,6 +6,8 @@
 package services;
 
 import java.util.List;
+import javafx.scene.control.TableColumn;
+import models.User;
 
 /**
  *
@@ -17,4 +19,5 @@ public interface IService<T> {
     T update(T obj);
     void delete(T obj);
     List<T> list();
+    void assignValueToTableColumn(List<TableColumn<T, String>> tblcList, T obj);
 }

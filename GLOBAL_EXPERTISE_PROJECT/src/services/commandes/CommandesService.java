@@ -11,6 +11,7 @@ import dao.ProduitCommandeDao;
 import dao.ProduitDao;
 import java.util.List;
 import java.util.ListIterator;
+import javafx.scene.control.TableColumn;
 import models.Commande;
 import services.BasicsService;
 import services.IService;
@@ -108,6 +109,11 @@ public class CommandesService implements IService<Commande> {
 
     public void setUtils(Utils utils) {
         this.utils = utils;
+    }
+
+    @Override
+    public void assignValueToTableColumn(List<TableColumn<Commande, String>> tblcList, Commande obj) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     

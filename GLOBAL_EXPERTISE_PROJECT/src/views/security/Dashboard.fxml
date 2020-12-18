@@ -11,9 +11,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="900.0" prefWidth="1617.0" style="-fx-background-color: #f7eceb;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.security.DashboardController">
+<AnchorPane id="AnchorPane" style="-fx-background-color: #f7eceb;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.security.DashboardController">
    <children>
-      <MenuBar fx:id="menuBar" prefHeight="23.0" prefWidth="1617.0">
+      <MenuBar fx:id="menuBar" prefHeight="32.0" prefWidth="1920.0">
         <menus>
           <Menu mnemonicParsing="false" text="User Settings">
             <items>
@@ -55,7 +55,7 @@
             </Menu>
         </menus>
       </MenuBar>
-      <AnchorPane layoutY="32.0" prefHeight="886.0" prefWidth="501.0" style="-fx-background-color: #545871;">
+      <AnchorPane layoutY="32.0" prefHeight="978.0" prefWidth="467.0" style="-fx-background-color: #545871;">
          <children>
             <Label layoutX="187.0" layoutY="69.0" text="Global Expertise" textAlignment="CENTER" textFill="WHITE">
                <font>
@@ -82,7 +82,7 @@
                   <Font name="Roboto" size="22.0" />
                </font>
             </Label>
-            <JFXButton fx:id="logingOutButton" buttonType="RAISED" layoutX="63.0" layoutY="831.0" onAction="#closeAppThenLaunchSignInView" prefHeight="31.0" prefWidth="376.0" style="-fx-background-color: #f7eceb;" stylesheets="@../style/style.css" text="Log Out" textAlignment="CENTER" textFill="#545871">
+            <JFXButton fx:id="logingOutButton" buttonType="RAISED" layoutX="46.0" layoutY="910.0" onAction="#closeAppThenLaunchSignInView" prefHeight="31.0" prefWidth="376.0" style="-fx-background-color: #f7eceb;" stylesheets="@../style/style.css" text="Log Out" textAlignment="CENTER" textFill="#545871">
                <font>
                   <Font name="Roboto Bold" size="22.0" />
                </font>
@@ -101,7 +101,7 @@
                   </Tooltip>
                </tooltip>
             </JFXButton>
-            <AnchorPane fx:id="adminFunctionsPane" layoutX="51.0" layoutY="166.0" prefHeight="198.0" prefWidth="400.0">
+            <AnchorPane fx:id="adminFunctionsPane" layoutX="34.0" layoutY="170.0" prefHeight="198.0" prefWidth="400.0">
                <children>
                   <JFXButton fx:id="userCreateButton" buttonType="RAISED" layoutX="51.0" layoutY="48.0" onAction="#loadUserCreationView" prefHeight="31.0" prefWidth="302.0" ripplerFill="WHITE" styleClass="button2" stylesheets="@../style/style.css" text="Créer Utilisateur">
                      <font>
@@ -144,9 +144,21 @@
                         <Font name="Roboto Bold" size="24.0" />
                      </font>
                   </Label>
+                  <JFXButton fx:id="listUsersButton" buttonType="RAISED" layoutX="52.0" layoutY="162.0" onAction="#loadUsersListingView" prefHeight="31.0" prefWidth="302.0" ripplerFill="WHITE" styleClass="button2" stylesheets="@../style/style.css" text="Lister Utilisateurs">
+                     <font>
+                        <Font name="Roboto Bold Italic" size="15.0" />
+                     </font>
+                     <graphic>
+                        <ImageView>
+                           <image>
+                              <Image url="@../images/group.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="commandFunctionsPane" layoutX="51.0" layoutY="377.0" prefHeight="198.0" prefWidth="400.0">
+            <AnchorPane fx:id="commandFunctionsPane" layoutX="34.0" layoutY="381.0" prefHeight="198.0" prefWidth="400.0">
                <children>
                   <JFXButton fx:id="commandListingButton" buttonType="RAISED" layoutX="51.0" layoutY="48.0" onAction="#loadCommandListingView" prefHeight="31.0" prefWidth="302.0" ripplerFill="WHITE" styleClass="button2" stylesheets="@../style/style.css" text="Lister Commandes">
                      <font>
@@ -203,7 +215,7 @@
                   </Label>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="PaymentFunctionsPane1" layoutX="51.0" layoutY="587.0" prefHeight="133.0" prefWidth="400.0">
+            <AnchorPane fx:id="PaymentFunctionsPane1" layoutX="34.0" layoutY="591.0" prefHeight="133.0" prefWidth="400.0">
                <children>
                   <JFXButton fx:id="establishFinalBill" buttonType="RAISED" layoutX="51.0" layoutY="48.0" onAction="#loadEstablishFinalBillView" prefHeight="31.0" prefWidth="302.0" ripplerFill="WHITE" styleClass="button2" stylesheets="@../style/style.css" text="Etablir Facture Définitive">
                      <font>
@@ -238,6 +250,6 @@
             </AnchorPane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="viewLoader" layoutX="516.0" layoutY="42.0" prefHeight="834.0" prefWidth="1087.0" />
+      <AnchorPane fx:id="viewLoader" layoutX="483.0" layoutY="42.0" prefHeight="957.0" prefWidth="1421.0" />
    </children>
 </AnchorPane>

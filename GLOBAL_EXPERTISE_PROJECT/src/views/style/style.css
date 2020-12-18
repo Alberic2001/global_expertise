@@ -18,7 +18,7 @@ and open the template in the editor.
 }
 
 .textfield:focus {
-    -fx-border-color : #000;
+    -fx-border-color : #ffffff00;
 }
 
 .button {
@@ -41,4 +41,61 @@ and open the template in the editor.
 
 .button2:hover {
     -fx-background-color: #7af045;
+}
+
+
+.table-view, .tree-table-view {
+    /* Constants used throughout the tableview. */
+    -fx-table-header-border-color: transparent;
+    -fx-table-cell-border-color: -fx-box-border; /* Horizontal Lines*/
+    -fx-background-color: transparent;
+}
+
+/* The column header row is made up of a number of column-header, one for each
+   TableColumn, and a 'filler' area that extends from the right-most column
+   to the edge of the tableview, or up to the 'column control' button. */
+.table-view .filler, .tree-table-view .filler, .table-view .column-header,
+.tree-table-view .column-header {
+    -fx-size: 65;
+    -fx-border-style: null;
+    -fx-border-color: -swatch-grey;
+    -fx-border-width: 0 0 2 0;
+    -fx-background-color: #545871;
+}
+
+.table-view .show-hide-columns-button, .tree-table-view .show-hide-columns-button
+{
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header .label, .table-view .filler .label,
+.table-view .column-drag-header .label, .tree-table-view .column-header .label,
+.tree-table-view .filler .label, .tree-table-view .column-drag-header .label
+{
+    -fx-alignment: CENTER;
+    -fx-background-color: #545871;
+    -fx-text-fill:#fff;
+}
+
+.table-view .column-header-background, .tree-table-view .column-header-background
+{
+    -fx-background-color: #545871;
+}
+
+.table-row-cell, .tree-table-row-cell {
+    -fx-cell-size: 40px;
+    -fx-background-color: #ffffff00;
+    -fx-font-weight: bold;
+    -fx-margin: 10 10 10 10;
+    -fx-alignment: CENTER;
+}
+
+.table-cell {
+    -fx-border-color: transparent; /* Vertical Lines*/
+    -fx-border-width: 1;
+    -fx-text-fill: #000;
+    -fx-background-color: transparent;
+    -fx-margin: 10 10 10 10;
+    -fx-alignment: CENTER;
+    -fx-font-weight: bold;
 }

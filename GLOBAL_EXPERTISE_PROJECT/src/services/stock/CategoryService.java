@@ -9,6 +9,7 @@ import dao.CategorieDao;
 import dao.ProduitDao;
 import java.util.List;
 import java.util.ListIterator;
+import javafx.scene.control.TableColumn;
 import models.Categorie;
 import models.Produit;
 import services.IService;
@@ -92,6 +93,11 @@ public class CategoryService implements IService<Categorie> {
 
     public void setUtils(Utils utils) {
         this.utils = utils;
+    }
+
+    @Override
+    public void assignValueToTableColumn(List<TableColumn<Categorie, String>> tblcList, Categorie obj) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     
