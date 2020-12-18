@@ -70,6 +70,7 @@ public class ListUsersController implements Initializable {
     
     
     private ObservableList<User> oblUsersList = FXCollections.observableArrayList();
+    private ObservableList<Adresse> oblAddressList = FXCollections.observableArrayList();
     private ObservableList<String> oblTypeList = FXCollections.observableArrayList();
     private BasicsService userService;
     private AddressService addressService;
@@ -106,7 +107,6 @@ public class ListUsersController implements Initializable {
         
         // Wrap the oblList in FilteredList(initially display all data)
         FilteredList<User> filteredData = new FilteredList<>(oblUsersList, b->true);
-        
         // Set the filter predicate whenever the filter change
         userSearchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredData.setPredicate(userFiltered -> {
@@ -127,18 +127,14 @@ public class ListUsersController implements Initializable {
                 }
             });
         });
-        
         // Wrap the filteredList in a sortedList
         SortedList<User> sortedData = new SortedList<>(filteredData);
-        
         // Bind the sortedList comparator in a TableView comparator
         //  Otherwise sorting the tableview would have no effect
         sortedData.comparatorProperty().bind(usersTblv.comparatorProperty());
-        
         // Add sorted (and filtered data to the table)
         usersTblv.setItems(sortedData);
         usersFilterComb.setItems(oblTypeList);
-        
         
         usersFilterComb.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue)->{
             if(newValue.equals("CLIENT")){
@@ -157,6 +153,14 @@ public class ListUsersController implements Initializable {
             
             usersTblv.setItems(sortedData);
         });
-    }    
+        
+        usersTblv.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue)->{
+            oblAddressList.clear();
+            oblAddressList.addAll(userService.getAdresseDao().selectAllForOne(newValue.getId()));
+            usersAddressesTblv.setItems(oblAddressList);
+        });
+    }
+    
+    
     
 }

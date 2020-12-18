@@ -60,7 +60,7 @@ and open the template in the editor.
     -fx-border-style: null;
     -fx-border-color: -swatch-grey;
     -fx-border-width: 0 0 2 0;
-    -fx-background-color: #545871;
+    -fx-background-color: transparent;
 }
 
 .table-view .show-hide-columns-button, .tree-table-view .show-hide-columns-button
@@ -73,29 +73,22 @@ and open the template in the editor.
 .tree-table-view .filler .label, .tree-table-view .column-drag-header .label
 {
     -fx-alignment: CENTER;
-    -fx-background-color: #545871;
-    -fx-text-fill:#fff;
+    -fx-background-color: transparent;
+    -fx-text-fill: #fff;
 }
 
 .table-view .column-header-background, .tree-table-view .column-header-background
 {
-    -fx-background-color: #545871;
+    -fx-background-color: #514873;
 }
 
 .table-row-cell, .tree-table-row-cell {
     -fx-cell-size: 40px;
-    -fx-background-color: #ffffff00;
-    -fx-font-weight: bold;
-    -fx-margin: 10 10 10 10;
-    -fx-alignment: CENTER;
 }
 
 .table-cell {
     -fx-border-color: transparent; /* Vertical Lines*/
     -fx-border-width: 1;
-    -fx-text-fill: #000;
     -fx-background-color: transparent;
-    -fx-margin: 10 10 10 10;
     -fx-alignment: CENTER;
-    -fx-font-weight: bold;
 }
