@@ -87,6 +87,7 @@ public class AddAdressController implements Initializable {
             while (li.hasNext()) {
                 li.next().clear();
             }
+            service.getUtils().closeWindow(cancelBtn);
         }
             
     }

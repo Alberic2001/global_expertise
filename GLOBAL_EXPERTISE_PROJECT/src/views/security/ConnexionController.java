@@ -93,7 +93,7 @@ public class ConnexionController implements Initializable {
     }
     
     private void loadDashboard(){
-        System.out.println(connectedUser.toString());
+        //System.out.println(connectedUser.toString());
         Stage stage = (Stage) signingInButton.getScene().getWindow(); 
         stage.close();
         Parent root;

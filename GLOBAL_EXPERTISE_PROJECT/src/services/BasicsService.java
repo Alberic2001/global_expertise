@@ -7,6 +7,9 @@ package services;
 
 import dao.AdresseDao;
 import dao.CategorieDao;
+import dao.CommandeDao;
+import dao.FactureDao;
+import dao.ProduitCommandeDao;
 import dao.ProduitDao;
 import dao.UserDao;
 import java.io.IOException;
@@ -25,7 +28,10 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import models.Adresse;
 import models.Client;
+import models.Commande;
 import models.Employe;
+import models.Facture;
+import models.ProduitCommande;
 import models.User;
 import utils.Utils;
 import views.security.ConnexionController;
@@ -37,11 +43,17 @@ import views.security.ConnexionController;
 public class BasicsService {
     UserDao userDao;
     AdresseDao adresseDao;
+    CommandeDao commandeDao;
+    ProduitCommandeDao produitCommandeDao;
+    FactureDao factureDao;
     Utils utils;
 
     public BasicsService() {
         this.userDao = new UserDao();
         this.adresseDao = new AdresseDao();
+        this.commandeDao = new CommandeDao();
+        this.produitCommandeDao = new ProduitCommandeDao();
+        this.factureDao = new FactureDao();
         this.utils = new Utils();
     }
 
@@ -107,11 +119,24 @@ public class BasicsService {
         return user;
     }
     
-    public void deleteUser(User user, List<Adresse> adresses){
-        ListIterator<Adresse> li = adresses.listIterator();
+    public void deleteUser(User user){
+        //ListIterator<Adresse> li = adresses.listIterator();
+        ListIterator<Adresse> adresses = this.getAdresseDao().selectAllForOne(user.getId()).listIterator();
+        ListIterator<Commande> commandes = this.getCommandeDao().selectAllForOne(user.getId()).listIterator();
+        ListIterator<ProduitCommande> produitcommandes = this.getProduitCommandeDao().selectAllForOne(user.getId()).listIterator();
+        ListIterator<Facture> factures = this.getFactureDao().selectAllForOne(user.getId()).listIterator();
         if(user instanceof Client){
-            while(li.hasNext()){
-                this.adresseDao.delete(li.next().getIdAdresse());
+            while(adresses.hasNext()){
+                this.adresseDao.delete(adresses.next().getIdAdresse());
+            }
+            while(produitcommandes.hasNext()){
+                this.produitCommandeDao.delete(produitcommandes.next().getIdCommande());
+            }
+            while(commandes.hasNext()){
+                this.commandeDao.delete(commandes.next().getIdCommande());
+            }
+            while(factures.hasNext()){
+                this.factureDao.delete(factures.next().getCommande().getIdCommande());
             }
         }
         this.userDao.delete(user.getId());
@@ -163,10 +188,29 @@ public class BasicsService {
     public void setUtils(Utils utils) {
         this.utils = utils;
     }
-    
-    
-    
-    
-    
+
+    public CommandeDao getCommandeDao() {
+        return commandeDao;
+    }
+
+    public void setCommandeDao(CommandeDao commandeDao) {
+        this.commandeDao = commandeDao;
+    }
+
+    public ProduitCommandeDao getProduitCommandeDao() {
+        return produitCommandeDao;
+    }
+
+    public void setProduitCommandeDao(ProduitCommandeDao produitCommandeDao) {
+        this.produitCommandeDao = produitCommandeDao;
+    }
+
+    public FactureDao getFactureDao() {
+        return factureDao;
+    }
+
+    public void setFactureDao(FactureDao factureDao) {
+        this.factureDao = factureDao;
+    }
     
 }

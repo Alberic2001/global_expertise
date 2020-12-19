@@ -18,6 +18,7 @@ import models.Client;
 import models.Commande;
 import models.Produit;
 import models.ProduitCommande;
+import models.User;
 
 /**
  *
@@ -30,9 +31,10 @@ public class ProduitCommandeDao implements IDao<ProduitCommande> {
     private ProduitDao produitDao;
     private CommandeDao commandeDao;
     
-    private String SQL_SELECT_ALL_PRODUITS_OF_COMMANDE = "SELECT * FROM `produit` INNER JOIN produit_commande ON produit.id_produit=produit_commande.id_produit INNER JOIN commande ON produit_commande.id_commande=commande.id_commande WHERE commande.statut='NON_LIVRE';";
-    private String SQL_SELECT_ALL_PRODUITS_OF_ONE_COMMANDE = SQL_SELECT_ALL_PRODUITS_OF_COMMANDE+" AND commande.id_commande=?";
+    private String SQL_SELECT_ALL_PRODUITS_OF_COMMANDE = "SELECT * FROM `produit` INNER JOIN produit_commande ON produit.id_produit=produit_commande.id_produit INNER JOIN commande ON produit_commande.id_commande=commande.id_commande  INNER JOIN user ON commande.id_client=user.id_user WHERE commande.statut='NON_LIVRE'";
+    private String SQL_SELECT_ALL_PRODUITS_OF_ONE_COMMANDE = SQL_SELECT_ALL_PRODUITS_OF_COMMANDE+" AND commande.id_client=?";
     private String SQL_INSERT_PRODUIT_IN_COMMANDE = "INSERT INTO `produit_commande`(`id_produit`, `id_commande`) VALUES (?,?)";
+    private String SQL_DELETE_PRODUIT_COMMANDE = "DELETE FROM `produit_commande` WHERE id_commande=?";
     
     public ProduitCommandeDao() {
         this.daoMysql = new DaoMysql();
@@ -97,18 +99,25 @@ public class ProduitCommandeDao implements IDao<ProduitCommande> {
         return produitCommandes;
     }
     
-    public List<ProduitCommande> selectAllForOne(int idCommande) {
+    public List<ProduitCommande> selectAllForOne(int idClient) {
         daoMysql.getConnection();
         daoMysql.initPS(SQL_SELECT_ALL_PRODUITS_OF_ONE_COMMANDE);
         List<ProduitCommande> produitcommandes = new ArrayList();
         PreparedStatement ps =daoMysql.getPstm();
         try {
-            ps.setInt(1, idCommande);
+            ps.setInt(1, idClient);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
                 ProduitCommande produitCommande = new ProduitCommande(rs.getInt("id_produitcommande"), 
                                     rs.getInt("id_produit"),
-                                    rs.getInt("id_commande"));
+                                    rs.getInt("id_commande"),
+                                    new Client(rs.getString("num_client"),
+                                            rs.getInt("id_client"),
+                                            rs.getString("nom"),
+                                            rs.getString("prenom"),
+                                            rs.getString("email"),
+                                            rs.getString("telephone"),
+                                            User.Type.valueOf(rs.getString("type"))));
                 
                 /*
                 Commande commande = new Commande(rs.getInt("id_commande"), 
@@ -140,7 +149,18 @@ public class ProduitCommandeDao implements IDao<ProduitCommande> {
 
     @Override
     public int delete(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        daoMysql.getConnection();
+        daoMysql.initPS(SQL_DELETE_PRODUIT_COMMANDE);
+        PreparedStatement ps =daoMysql.getPstm();
+        try {
+            ps.setInt(1, id);
+            daoMysql.executeMaj();
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            daoMysql.CloseConnection();
+        }
+        return 0;
     }
     
     

@@ -27,9 +27,11 @@ public class CommandeDao implements IDao<Commande> {
     //statutCommande -> NON_LIVRE, LIVRE, EN_COURS, EN_ATTENTE
     private String statutCommande = "NON_LIVRE";
     
-    private String SQL_SELECT_ALL_COMMANDES = "SELECT * FROM `commande` INNER JOIN user ON commande.id_client=user.id_user WHERE type='CLIENT' AND statut=?";
+    private String SQL_SELECT_ALL_COMMANDES = "SELECT * FROM `commande` INNER JOIN user ON commande.id_client=user.id_user WHERE type='CLIENT'";
     private String SQL_SELECT_ALL_COMMANDES_OF_ONE_CLIENT = SQL_SELECT_ALL_COMMANDES+" AND user.id_user=?";
     private String SQL_INSERT_COMMANDE = "INSERT INTO `commande`(`num_commande`, `statut`, `id_client`) VALUES (?,?,?)";
+    private String SQL_UPDATE_COMMANDE = "";
+    private String SQL_DELETE_COMMANDE = "DELETE FROM `commande` WHERE id_commande=?";
     
     public CommandeDao() {
         this.daoMysql = new DaoMysql();
@@ -74,7 +76,6 @@ public class CommandeDao implements IDao<Commande> {
         PreparedStatement ps =daoMysql.getPstm();
         List<Commande> commandes = new ArrayList();
         try {
-            ps.setString(1, statutCommande);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
                 Commande commande = new Commande(rs.getInt("id_commande"), 
@@ -114,7 +115,7 @@ public class CommandeDao implements IDao<Commande> {
                                             rs.getString("prenom"), 
                                             rs.getString("email"), 
                                             rs.getString("telephone"), 
-                                            Client.Type.valueOf(rs.getString("statut"))));
+                                            Client.Type.valueOf(rs.getString("type"))));
                 commandes.add(commande);
             }   
         } catch (SQLException ex) {
@@ -132,7 +133,18 @@ public class CommandeDao implements IDao<Commande> {
 
     @Override
     public int delete(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        daoMysql.getConnection();
+        daoMysql.initPS(SQL_DELETE_COMMANDE);
+        PreparedStatement ps =daoMysql.getPstm();
+        try {
+            ps.setInt(1, id);
+            daoMysql.executeMaj();
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            daoMysql.CloseConnection();
+        }
+        return 0;
     }
     
     

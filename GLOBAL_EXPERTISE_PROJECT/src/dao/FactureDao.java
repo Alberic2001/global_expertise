@@ -30,6 +30,7 @@ public class FactureDao implements IDao<Facture> {
     private String SQL_SELECT_ALL_FACTURES = "SELECT * FROM `facture` INNER JOIN commande ON facture.id_commande=commande.id_commande INNER JOIN user ON commande.id_client=user.id_user";
     private String SQL_SELECT_ALL_FACTURES_OF_ONE_CLIENT = SQL_SELECT_ALL_FACTURES+" AND user.id_user=?";
     private String SQL_INSERT_FACTURE = "INSERT INTO `facture`(`num_facture`, `date_facture`, `montant_facture`, `statut_facture`, `id_commande`) VALUES (?,?,?,?,?)";
+    private String SQL_DELETE_FACTURE = "DELETE FROM `facture` WHERE id_commande=?";
     
     public FactureDao() {
         this.daoMysql = new DaoMysql();
@@ -93,13 +94,13 @@ public class FactureDao implements IDao<Facture> {
         return factures;
     }
     
-    public List<Facture> selectAllForOne(int idClient) {
+    public List<Facture> selectAllForOne(int idUser) {
         daoMysql.getConnection();
         daoMysql.initPS(SQL_SELECT_ALL_FACTURES_OF_ONE_CLIENT);
         List<Facture> factures = new ArrayList();
         PreparedStatement ps =daoMysql.getPstm();
         try {
-            ps.setInt(1, idClient);
+            ps.setInt(1, idUser);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
                 Facture facture = new Facture(rs.getInt("id_facture"),
@@ -133,7 +134,18 @@ public class FactureDao implements IDao<Facture> {
 
     @Override
     public int delete(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        daoMysql.getConnection();
+        daoMysql.initPS(SQL_DELETE_FACTURE);
+        PreparedStatement ps =daoMysql.getPstm();
+        try {
+            ps.setInt(1, id);
+            daoMysql.executeMaj();
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            daoMysql.CloseConnection();
+        }
+        return 0;
     }
     
     

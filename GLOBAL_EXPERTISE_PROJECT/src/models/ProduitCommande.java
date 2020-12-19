@@ -13,7 +13,8 @@ public class ProduitCommande {
     private int idProduitCommande;
     private int idProduit;
     private int idCommande;
-
+    private Client client;
+    
     public ProduitCommande() {
     }
 
@@ -27,6 +28,15 @@ public class ProduitCommande {
         this.idProduit = idProduit;
         this.idCommande = idCommande;
     }
+
+    public ProduitCommande(int idProduitCommande, int idProduit, int idCommande, Client client) {
+        this.idProduitCommande = idProduitCommande;
+        this.idProduit = idProduit;
+        this.idCommande = idCommande;
+        this.client = client;
+    }
+    
+    
 
     public int getIdProduitCommande() {
         return idProduitCommande;
@@ -52,6 +62,15 @@ public class ProduitCommande {
     public void setIdCommande(int idCommande) {
         this.idCommande = idCommande;
     }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+    
     
     
 }

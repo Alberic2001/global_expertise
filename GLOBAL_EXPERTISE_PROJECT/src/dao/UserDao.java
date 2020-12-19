@@ -309,7 +309,7 @@ public class UserDao implements IDao<User> {
         PreparedStatement ps =daoMysql.getPstm();
         try {
             ps.setInt(1, id);
-            ps.executeUpdate();
+            daoMysql.executeMaj();
         } catch (SQLException ex) {
             Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
