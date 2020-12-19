@@ -8,23 +8,29 @@ package views.security;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
+import javafx.util.Callback;
 import models.Adresse;
 import models.User;
-import models.User.Type;
 import services.AddressService;
 import services.BasicsService;
 
@@ -56,7 +62,7 @@ public class ListUsersController implements Initializable {
     @FXML
     private TableColumn<User, String> typeTblc;
     @FXML
-    private TableColumn<?, ?> userActionsTblc;
+    private TableColumn userActionsTblc;
     @FXML
     private TableColumn<Adresse, String> roadTblc;
     @FXML
@@ -68,7 +74,7 @@ public class ListUsersController implements Initializable {
     @FXML
     private TableColumn<?, ?> addresseActionsTblc;
     
-    
+    private static ListUsersController ctrler;
     private ObservableList<User> oblUsersList = FXCollections.observableArrayList();
     private ObservableList<Adresse> oblAddressList = FXCollections.observableArrayList();
     private ObservableList<String> oblTypeList = FXCollections.observableArrayList();
@@ -76,16 +82,45 @@ public class ListUsersController implements Initializable {
     private AddressService addressService;
     private User user;
     private Adresse adresse;
+
+    public static ListUsersController getCtrler() {
+        return ctrler;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public ObservableList<User> getOblUsersList() {
+        return oblUsersList;
+    }
+
+    public ObservableList<Adresse> getOblAddressList() {
+        return oblAddressList;
+    }
+
+    public TableView<User> getUsersTblv() {
+        return usersTblv;
+    }
+
+    public TableView<Adresse> getUsersAddressesTblv() {
+        return usersAddressesTblv;
+    }
+    
+    
+    
+    
+    
     
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+        ctrler = this;
         userService = new BasicsService();
         addressService = new AddressService();
-        user = new User();
+        
         adresse = new Adresse();
         
         nameTblc.setCellValueFactory(new PropertyValueFactory<>("nom"));
@@ -93,6 +128,47 @@ public class ListUsersController implements Initializable {
         emailTblc.setCellValueFactory(new PropertyValueFactory<>("email"));
         numberTblc.setCellValueFactory(new PropertyValueFactory<>("telephone"));
         typeTblc.setCellValueFactory(new PropertyValueFactory<>("type"));
+        
+        Callback<TableColumn<User,String>, TableCell<User,String>> cellFactory=(param) -> {
+            // The tablecell gonna contain buttons
+            final TableCell<User,String> cell = new TableCell<User,String>(){
+                //Override updateItem method
+                @Override
+                public void updateItem(String item, boolean empty){
+                    super.updateItem(item, empty);
+                    
+                    //Ensure that cell is created only on non-empt rows
+                    if(empty){
+                        setGraphic(null);
+                        setText(null);
+                    } else {
+                        //We can create action button
+                        final JFXButton deleteBtn=new JFXButton("Delete");
+                        //attach listener on button
+                        deleteBtn.setOnAction(event->{
+                            //delete the clicked person object and update
+                            User u = getTableView().getItems().get(getIndex());
+                            //Confirm
+                            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                            alert.initModality(Modality.APPLICATION_MODAL);
+                            alert.setContentText("Etes-vous sûr de vouloir supprimer l'utilisateur "+u.getNom()+" "+u.getPrenom()+" ?");
+                            alert.setHeaderText("Suppression");
+                            Optional<ButtonType> result = alert.showAndWait();
+                            if(result.get() == ButtonType.OK){
+                                userService.deleteUser(user, userService.getAdresseDao().selectAllForOne(u.getId()));
+                            } else {
+                                alert.close();
+                            }
+                        });
+                        
+                    }
+                }
+            };
+            
+            
+            return null;
+            
+        };
         
         roadTblc.setCellValueFactory(new PropertyValueFactory<>("rue"));
         districtTblc.setCellValueFactory(new PropertyValueFactory<>("quartier"));
@@ -155,10 +231,17 @@ public class ListUsersController implements Initializable {
         });
         
         usersTblv.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue)->{
+            addAddressBtn.setDisable(false);
             oblAddressList.clear();
             oblAddressList.addAll(userService.getAdresseDao().selectAllForOne(newValue.getId()));
             usersAddressesTblv.setItems(oblAddressList);
+            user = newValue;
         });
+    }
+
+    @FXML
+    private void handleLoadAddAddressWindow(ActionEvent event) throws IOException {
+        userService.getUtils().loadWindow(usersTblv, "security/addAdress");
     }
     
     

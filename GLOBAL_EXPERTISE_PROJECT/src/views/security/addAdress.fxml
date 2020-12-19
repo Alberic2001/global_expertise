@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="546.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111" fx:controller="views.security.AddAdressController">
+   <children>
+      <GridPane layoutX="85.0" layoutY="226.0" prefHeight="166.0" prefWidth="447.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="219.0" minWidth="10.0" prefWidth="131.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="316.0" minWidth="10.0" prefWidth="316.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label fx:id="adressDetailsTextFieldLabel" alignment="CENTER" prefHeight="29.0" prefWidth="310.0" text="Détails" textFill="#545871" GridPane.rowIndex="3">
+               <font>
+                  <Font name="Roboto Light" size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="adressTownTextFieldLabel" alignment="CENTER" prefHeight="29.0" prefWidth="301.0" text="Ville" textFill="#545871" GridPane.rowIndex="2">
+               <font>
+                  <Font name="Roboto Light" size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="adressDistrictTextFieldLabel" alignment="CENTER" prefHeight="29.0" prefWidth="297.0" text="Quartier" textFill="#545871" GridPane.rowIndex="1">
+               <font>
+                  <Font name="Roboto Light" size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="adressRoadTextFieldLabel" alignment="CENTER" prefHeight="29.0" prefWidth="299.0" text="Rue" textAlignment="CENTER" textFill="#545871">
+               <font>
+                  <Font name="Roboto Light" size="24.0" />
+               </font>
+            </Label>
+            <JFXTextField fx:id="detailsTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <JFXTextField fx:id="townTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <JFXTextField fx:id="districtTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <JFXTextField fx:id="roadTextField" GridPane.columnIndex="1" />
+         </children>
+      </GridPane>
+      <ImageView fitHeight="124.0" fitWidth="124.0" layoutX="239.0" layoutY="14.0">
+         <image>
+            <Image url="@../images/address.png" />
+         </image>
+      </ImageView>
+      <JFXButton fx:id="cancelBtn" buttonType="RAISED" layoutX="232.0" layoutY="447.0" onAction="#close" stylesheets="@../style/style.css" text="Annuler" />
+      <JFXButton fx:id="addBtn" buttonType="RAISED" layoutX="316.0" layoutY="447.0" onAction="#addNewAddress" style="-fx-background-color: #69F993;" stylesheets="@../style/style.css" text="Ajouter" />
+      <Label fx:id="errorLbl" alignment="CENTER" layoutX="109.0" layoutY="408.0" prefHeight="21.0" prefWidth="424.0" textAlignment="CENTER" textFill="RED" />
+   </children>
+</AnchorPane>

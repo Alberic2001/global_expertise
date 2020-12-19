@@ -107,9 +107,12 @@ public class BasicsService {
         return user;
     }
     
-    public void deleteUser(User user, Adresse adresse){
+    public void deleteUser(User user, List<Adresse> adresses){
+        ListIterator<Adresse> li = adresses.listIterator();
         if(user instanceof Client){
-            this.adresseDao.delete(adresse.getIdAdresse());
+            while(li.hasNext()){
+                this.adresseDao.delete(li.next().getIdAdresse());
+            }
         }
         this.userDao.delete(user.getId());
     }

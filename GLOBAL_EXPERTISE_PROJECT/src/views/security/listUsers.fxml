@@ -12,8 +12,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="957.0" prefWidth="1421.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111" fx:controller="views.security.ListUsersController">
+<AnchorPane id="AnchorPane" prefHeight="957.0" prefWidth="1421.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.security.ListUsersController">
    <children>
       <Label layoutX="519.0" layoutY="32.0" text="Lister Utilisateurs" textFill="#545871">
          <font>
@@ -58,7 +57,7 @@
             <Image url="@../images/search.png" />
          </image>
       </ImageView>
-      <JFXButton fx:id="addAddressBtn" alignment="CENTER" buttonType="RAISED" layoutX="1204.0" layoutY="631.0" prefHeight="31.0" prefWidth="177.0" style="-fx-background-color: #69F993;" stylesheets="@../style/style.css" text="Ajouter Adresse" textFill="WHITE">
+      <JFXButton fx:id="addAddressBtn" alignment="CENTER" buttonType="RAISED" disable="true" layoutX="1204.0" layoutY="631.0" onAction="#handleLoadAddAddressWindow" prefHeight="31.0" prefWidth="177.0" style="-fx-background-color: #69F993;" stylesheets="@../style/style.css" text="Ajouter Adresse" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>

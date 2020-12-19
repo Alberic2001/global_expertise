@@ -6,6 +6,7 @@
 package utils;
 
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -63,6 +64,26 @@ public class Utils {
         stage.show();
     }
     
+    public int loadWindow(Control field, String view) throws IOException{
+        Stage stage = (Stage) field.getScene().getWindow(); 
+        Parent root;
+            root = FXMLLoader.load(getClass().getResource("../views/"+view+".fxml"));
+            Scene scene = new Scene(root);
+            stage=new Stage();
+            stage.setTitle("Transfert Argent");
+            stage.alwaysOnTopProperty();
+            stage.centerOnScreen();
+            stage.setScene(scene);
+            stage.show();
+        return 0;
+    }
+    
+    public int closeWindow(Control field){
+        Stage stage = (Stage) field.getScene().getWindow(); 
+        stage.close();
+        return 0;
+    }
+    
     public String validateTextFields(TextField firstField){
         String errormessage = null;
         boolean field = firstField.getText() == null;
@@ -107,4 +128,12 @@ public class Utils {
             tblcList.get(i).setCellValueFactory(new PropertyValueFactory<>(user.getClass().getFields()[i].getName()));
         }
     }
+    
+    public void clearTextfields(List<JFXTextField> fields){
+        while(fields.listIterator().hasNext()){
+            fields.listIterator().next().clear();
+        }
+    }
+    
+    
 }

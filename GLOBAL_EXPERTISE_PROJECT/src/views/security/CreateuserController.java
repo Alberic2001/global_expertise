@@ -10,6 +10,8 @@ import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -186,17 +188,7 @@ public class CreateuserController implements Initializable {
     }
     
     public void clearAllTextFields(){
-        clientNumberOrMatriculeSearchTextField.clear();
-        nameTextField.clear();
-        surnameTextField.clear();
-        emailTextField.clear();
-        numberTextField.clear();
-        adressRoadTextField.clear();
-        adressDistrictTextField.clear();
-        adressTownTextField.clear();
-        adressDetailsTextField.clear();
-        serviceTextField.clear();
-        loginTextField.clear();
+        service.getUtils().clearTextfields(new ArrayList<JFXTextField>(Arrays.asList(loginTextField, serviceTextField, adressDetailsTextField, adressDetailsTextField, adressTownTextField, adressDistrictTextField, adressRoadTextField, numberTextField, clientNumberOrMatriculeSearchTextField, nameTextField, surnameTextField, emailTextField)));
         passwordTextField.clear();
     }
     
