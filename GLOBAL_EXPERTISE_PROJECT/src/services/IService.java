@@ -6,8 +6,12 @@
 package services;
 
 import java.util.List;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.SortedList;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
-import models.User;
+import javafx.scene.control.TableView;
+import services.stock.CategoryService;
 
 /**
  *
@@ -20,4 +24,7 @@ public interface IService<T> {
     void delete(T obj);
     List<T> list();
     void assignValueToTableColumn(List<TableColumn<T, String>> tblcList, T obj);
+    TableCell<T, String> addCellFactory(ObservableList<T> oblObjList, 
+            TableView<T> objTblv, 
+            SortedList<T> sortedData);
 }

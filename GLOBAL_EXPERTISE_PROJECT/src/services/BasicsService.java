@@ -5,25 +5,32 @@
  */
 package services;
 
+import com.jfoenix.controls.JFXButton;
 import dao.AdresseDao;
-import dao.CategorieDao;
 import dao.CommandeDao;
 import dao.FactureDao;
 import dao.ProduitCommandeDao;
-import dao.ProduitDao;
 import dao.UserDao;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Control;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import models.Adresse;
@@ -161,6 +168,52 @@ public class BasicsService {
         }
     }
     
+    
+    public TableCell<User, String> addCellFactory(ObservableList<User> oblUsersList, 
+            TableView<User> usersTblv, 
+            SortedList<User> sortedData) {
+        
+        final TableCell<User, String> cell = new TableCell<User, String>() {
+                //Override updateItem method
+                @Override
+                public void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+
+                    //Ensure that cell is created only on non-empty rows
+                    if (empty) {
+                        setGraphic(null);
+                        setText(null);
+                    } else {
+                        //We can create action button
+                        final JFXButton deleteBtn = new JFXButton("Delete");
+                        //attach listener on button
+                        deleteBtn.setOnAction(event -> {
+                            //delete the clicked person object and update
+                            User user = getTableView().getItems().get(getIndex());
+                            //Confirm
+                            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                            alert.initModality(Modality.APPLICATION_MODAL);
+                            alert.setContentText("En faisant cela, vous supprimerez l'utilisateur "
+                                    + user.getNom() + " " + user.getPrenom() + " de type" +
+                                    user.getType().toString()
+                                    +"\nEtes-vous sûr de vouloir faire cela" + " ?");
+                            alert.setHeaderText("Suppression");
+                            Optional<ButtonType> result = alert.showAndWait();
+                            if (result.get() == ButtonType.OK) {
+                                deleteUser(user);
+                                oblUsersList.remove(user);
+                                usersTblv.setItems(sortedData);
+                            } else {
+                                alert.close();
+                            }
+                        });
+                        setGraphic(deleteBtn);
+                        setText(null);
+                    }
+                }
+            };
+            return cell;
+    }
     
     
     

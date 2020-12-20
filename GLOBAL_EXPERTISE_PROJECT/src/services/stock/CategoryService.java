@@ -5,11 +5,20 @@
  */
 package services.stock;
 
+import com.jfoenix.controls.JFXButton;
 import dao.CategorieDao;
 import dao.ProduitDao;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Optional;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.SortedList;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.stage.Modality;
 import models.Categorie;
 import models.Produit;
 import services.IService;
@@ -93,6 +102,52 @@ public class CategoryService implements IService<Categorie> {
     @Override
     public void assignValueToTableColumn(List<TableColumn<Categorie, String>> tblcList, Categorie obj) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public TableCell<Categorie, String> addCellFactory(ObservableList<Categorie> oblCategoriesList, 
+            TableView<Categorie> categoriesTblv, 
+            SortedList<Categorie> sortedData) {
+        final TableCell<Categorie, String> cell = new TableCell<Categorie, String>() {
+                //Override updateItem method
+                @Override
+                public void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+
+                    //Ensure that cell is created only on non-empty rows
+                    if (empty) {
+                        setGraphic(null);
+                        setText(null);
+                    } else {
+                        //We can create action button
+                        final JFXButton deleteBtn = new JFXButton("Delete");
+                        //attach listener on button
+                        deleteBtn.setOnAction(event -> {
+                            //delete the clicked person object and update
+                            Categorie cat = getTableView().getItems().get(getIndex());
+                            //Confirm
+                            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                            alert.initModality(Modality.APPLICATION_MODAL);
+                            alert.setContentText("En faisant cela, vous supprimerez tous les produits associés à "
+                                    + cat.getLibelle() + "\nEtes-vous sûr de vouloir faire cela" + " ?");
+                            alert.setHeaderText("Suppression");
+                            Optional<ButtonType> result = alert.showAndWait();
+                            if (result.get() == ButtonType.OK) {
+                                delete(cat);
+                                oblCategoriesList.remove(cat);
+                                categoriesTblv.setItems(sortedData);
+                            } else {
+                                alert.close();
+                            }
+                        });
+                        setGraphic(deleteBtn);
+                        setText(null);
+                    }
+                }
+            };
+
+            return cell;
+
     }
 
     

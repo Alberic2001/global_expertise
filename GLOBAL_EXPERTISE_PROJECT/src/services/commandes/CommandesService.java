@@ -5,13 +5,23 @@
  */
 package services.commandes;
 
+import com.jfoenix.controls.JFXButton;
 import dao.CategorieDao;
 import dao.CommandeDao;
 import dao.ProduitCommandeDao;
 import dao.ProduitDao;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Optional;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.SortedList;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.stage.Modality;
+import models.Adresse;
 import models.Commande;
 import services.BasicsService;
 import services.IService;
@@ -114,6 +124,54 @@ public class CommandesService implements IService<Commande> {
     @Override
     public void assignValueToTableColumn(List<TableColumn<Commande, String>> tblcList, Commande obj) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public TableCell<Commande, String> addCellFactory(ObservableList<Commande> oblCommandsList, 
+            TableView<Commande> commandsTblv, 
+            SortedList<Commande> sortedData) {
+        
+        final TableCell<Commande, String> cell = new TableCell<Commande, String>() {
+                //Override updateItem method
+                @Override
+                public void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+
+                    //Ensure that cell is created only on non-empty rows
+                    if (empty) {
+                        setGraphic(null);
+                        setText(null);
+                    } else {
+                        //We can create action button
+                        final JFXButton deleteBtn = new JFXButton("Delete");
+                        //attach listener on button
+                        deleteBtn.setOnAction(event -> {
+                            //delete the clicked person object and update
+                            Commande command = getTableView().getItems().get(getIndex());
+                            //Confirm
+                            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                            alert.initModality(Modality.APPLICATION_MODAL);
+                            alert.setContentText("En faisant cela, vous supprimerez la commande "
+                                    + command.getNumCommande() + " " + command.getStatut() + " du client" +
+                                    command.getClient().toString()
+                                    +"\nEtes-vous sûr de vouloir faire cela" + " ?");
+                            alert.setHeaderText("Suppression");
+                            Optional<ButtonType> result = alert.showAndWait();
+                            if (result.get() == ButtonType.OK) {
+                                delete(command);
+                                oblCommandsList.remove(command);
+                                commandsTblv.setItems(sortedData);
+                            } else {
+                                alert.close();
+                            }
+                        });
+                        setGraphic(deleteBtn);
+                        setText(null);
+                    }
+                }
+            };
+
+            return cell;
     }
 
     

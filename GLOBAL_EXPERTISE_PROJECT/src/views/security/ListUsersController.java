@@ -72,7 +72,7 @@ public class ListUsersController implements Initializable {
     @FXML
     private TableColumn<Adresse, String> detailsTblc;
     @FXML
-    private TableColumn<?, ?> addresseActionsTblc;
+    private TableColumn addresseActionsTblc;
 
     private static ListUsersController ctrler;
     private ObservableList<User> oblUsersList = FXCollections.observableArrayList();
@@ -169,50 +169,12 @@ public class ListUsersController implements Initializable {
         usersTblv.setItems(sortedData);
         usersFilterComb.setItems(oblTypeList);
         
+        SortedList<Adresse> sortedAddressData = new SortedList<>(oblAddressList);
+        sortedAddressData.comparatorProperty().bind(usersAddressesTblv.comparatorProperty());
+        usersAddressesTblv.setItems(sortedAddressData);
+        
         Callback<TableColumn<User, String>, TableCell<User, String>> cellFactory = (param) -> {
-            // The tablecell gonna contain buttons
-            final TableCell<User, String> cell = new TableCell<User, String>() {
-                //Override updateItem method
-                @Override
-                public void updateItem(String item, boolean empty) {
-                    super.updateItem(item, empty);
-
-                    //Ensure that cell is created only on non-empt rows
-                    if (empty) {
-                        setGraphic(null);
-                        setText(null);
-                    } else {
-                        //We can create action button
-                        final JFXButton deleteBtn = new JFXButton("Delete");
-                        //attach listener on button
-                        deleteBtn.setOnAction(event -> {
-                            //delete the clicked person object and update
-                            User u = getTableView().getItems().get(getIndex());
-                            //Confirm
-                            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                            alert.initModality(Modality.APPLICATION_MODAL);
-                            alert.setContentText("Etes-vous sûr de vouloir supprimer l'utilisateur " + u.getNom() + " " + u.getPrenom() + " ?");
-                            alert.setHeaderText("Suppression");
-                            Optional<ButtonType> result = alert.showAndWait();
-                            if (result.get() == ButtonType.OK) {
-                                userService.deleteUser(u);
-                                oblUsersList.clear();
-                                userService.getUserDao().setTypeOfSelect("SQL_SELECT_ALL");
-                                oblUsersList.addAll(userService.getUserDao().selectAll());
-                                usersTblv.setItems(sortedData);
-                            } else {
-                                alert.close();
-                            }
-                        });
-                        setGraphic(deleteBtn);
-                        setText(null);
-
-                    }
-                }
-            };
-
-            return cell;
-
+            return userService.addCellFactory(oblUsersList, usersTblv, sortedData);
         };
         
         // set the custom factory to action column
@@ -239,7 +201,13 @@ public class ListUsersController implements Initializable {
         usersTblv.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             addAddressBtn.setDisable(false);
             oblAddressList.clear();
-            oblAddressList.addAll(userService.getAdresseDao().selectAllForOne(newValue.getId()));
+            oblAddressList.addAll(addressService.getAdresseDao().selectAllForOne(newValue.getId()));
+            
+            Callback<TableColumn<Adresse, String>, TableCell<Adresse, String>> cellAddressFactory = (param) -> {
+                return addressService.addCellFactory(oblAddressList, usersAddressesTblv, sortedAddressData);
+            };
+            addresseActionsTblc.setCellFactory(cellAddressFactory);
+            
             usersAddressesTblv.setItems(oblAddressList);
             user = newValue;
         });
