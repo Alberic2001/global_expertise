@@ -167,6 +167,7 @@ public class ListUsersController implements Initializable {
         sortedData.comparatorProperty().bind(usersTblv.comparatorProperty());
         // Add sorted (and filtered data to the table)
         usersTblv.setItems(sortedData);
+        
         usersFilterComb.setItems(oblTypeList);
         
         SortedList<Adresse> sortedAddressData = new SortedList<>(oblAddressList);
@@ -201,15 +202,14 @@ public class ListUsersController implements Initializable {
         usersTblv.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             addAddressBtn.setDisable(false);
             oblAddressList.clear();
-            oblAddressList.addAll(addressService.getAdresseDao().selectAllForOne(newValue.getId()));
-            
+            if(addressService.getAdresseDao().selectAllForOne(newValue.getId())!=null)
+                oblAddressList.addAll(addressService.getAdresseDao().selectAllForOne(newValue.getId()));
             Callback<TableColumn<Adresse, String>, TableCell<Adresse, String>> cellAddressFactory = (param) -> {
                 return addressService.addCellFactory(oblAddressList, usersAddressesTblv, sortedAddressData);
             };
             addresseActionsTblc.setCellFactory(cellAddressFactory);
             
             usersAddressesTblv.setItems(oblAddressList);
-            user = newValue;
         });
     }
 

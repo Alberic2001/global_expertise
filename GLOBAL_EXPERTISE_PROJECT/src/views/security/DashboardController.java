@@ -139,10 +139,20 @@ public class DashboardController implements Initializable {
 
     @FXML
     private void loadCommandListingView(ActionEvent event) {
+        try {
+            this.loadView("../command/listCommands", viewLoader);
+        } catch (IOException ex) {
+            Logger.getLogger(DashboardController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML
     private void loadCommandEditView(ActionEvent event) {
+        try {
+            this.loadView("../command/editCommand", viewLoader);
+        } catch (IOException ex) {
+            Logger.getLogger(DashboardController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML

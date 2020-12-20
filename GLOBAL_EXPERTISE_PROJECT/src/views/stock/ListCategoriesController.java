@@ -10,7 +10,6 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,17 +18,13 @@ import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Modality;
 import javafx.util.Callback;
 import models.Categorie;
 import models.Produit;
-import services.BasicsService;
 import services.stock.CategoryService;
 import services.stock.ProductService;
 
@@ -140,19 +135,17 @@ public class ListCategoriesController implements Initializable {
         categoriesTblv.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             addCategoryProductBtn.setDisable(false);
             oblProductsList.clear();
-            oblProductsList.addAll(productService.getProduitDao().selectAllForOne(newValue.getIdCategorie()));
+            if(productService.getProduitDao().selectAllForOne(newValue.getIdCategorie())!=null)
+                oblProductsList.addAll(productService.getProduitDao().selectAllForOne(newValue.getIdCategorie()));
             
             Callback<TableColumn<Produit, String>, TableCell<Produit, String>> cellProductFactory = (param) -> {
-                return productService.addCellFactory(oblProductsList, 
-                productsTblv, 
-                sortedProductData);
+                return productService.addCellFactory(oblProductsList, productsTblv, sortedProductData);
             };
             // set the custom factory to action column
             productActionsTblc.setCellFactory(cellProductFactory);
+
             productsTblv.setItems(oblProductsList);
-            category = newValue;
         });
-        categoriesTblv.setItems(sortedData);
     }    
 
     @FXML
