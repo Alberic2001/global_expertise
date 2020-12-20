@@ -8,6 +8,7 @@ package services.stock;
 import com.jfoenix.controls.JFXButton;
 import dao.CategorieDao;
 import dao.ProduitDao;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Optional;
@@ -148,6 +149,15 @@ public class CategoryService implements IService<Categorie> {
 
             return cell;
 
+    }
+
+    @Override
+    public List<String> comboBoxListToString(List<Categorie> categories) {
+        List<String> categoriesNames = new ArrayList();
+        while (categories.listIterator().hasNext()) {
+            categoriesNames.add(categories.listIterator().next().getLibelle());
+        }
+        return categoriesNames;
     }
 
     

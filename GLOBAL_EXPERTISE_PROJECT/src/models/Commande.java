@@ -5,6 +5,7 @@
  */
 package models;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import utils.Utils;
@@ -25,7 +26,7 @@ public class Commande {
     private String numCommande;
     // statut = "non livré", "livré", "en cours de préparation"
     private Statut statut = Statut.NON_LIVRE;
-    private static int nbreCommande;
+    private LocalDate date;
     
     // propriete navigationnelle
     //Many to One (Commande vers Client)
@@ -38,24 +39,28 @@ public class Commande {
         this.produits = new ArrayList<>();
         this.numCommande = "Num_cmde_"+Utils.generateRandomString(10);
         this.statut = Statut.NON_LIVRE;
+        this.date = LocalDate.now();
     }
     
     public Commande(String numCommande, Statut statut) {
         this.numCommande = numCommande;
         this.statut = statut;
+        this.date = LocalDate.now();
     }
 
-    public Commande(int idCommande, String numCommande, Statut statut) {
+    public Commande(int idCommande, String numCommande, Statut statut, LocalDate date) {
         this.idCommande = idCommande;
         this.numCommande = numCommande;
         this.statut = statut;
+        this.date = date;
     }
 
-    public Commande(int idCommande, String numCommande, Statut statut, Client client) {
+    public Commande(int idCommande, String numCommande, Statut statut, LocalDate date, Client client) {
         this.idCommande = idCommande;
         this.numCommande = numCommande;
         this.statut = statut;
         this.client = client;
+        this.date = date;
     }
     
     
@@ -100,6 +105,15 @@ public class Commande {
         this.produits = produits;
     }
 
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    
     @Override
     public String toString() {
         return "Commande{" + "idCommande=" + idCommande + ", numCommande=" + numCommande + ", statut=" + statut + ", client=" + client + ", produits=" + produits + '}';

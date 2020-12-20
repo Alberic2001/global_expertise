@@ -27,4 +27,6 @@ public interface IService<T> {
     TableCell<T, String> addCellFactory(ObservableList<T> oblObjList, 
             TableView<T> objTblv, 
             SortedList<T> sortedData);
+    List<String> comboBoxListToString(List<T> obj);
+    
 }

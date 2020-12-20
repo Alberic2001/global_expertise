@@ -9,6 +9,8 @@ import dao.interfaces.IDao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -80,7 +82,8 @@ public class CommandeDao implements IDao<Commande> {
             while(rs.next()){
                 Commande commande = new Commande(rs.getInt("id_commande"), 
                                     rs.getString("num_commande"), 
-                                    Commande.Statut.valueOf(rs.getString("statut")), 
+                                    Commande.Statut.valueOf(rs.getString("statut")),
+                                    LocalDate.parse(rs.getString("date_commande"), DateTimeFormatter.ofPattern("dd/MM/yyyy")),
                                     new Client(rs.getInt("id_client"), 
                                             rs.getString("nom"), 
                                             rs.getString("prenom"), 
@@ -110,12 +113,13 @@ public class CommandeDao implements IDao<Commande> {
                 Commande commande = new Commande(rs.getInt("id_commande"), 
                                     rs.getString("num_commande"), 
                                     Commande.Statut.valueOf(rs.getString("statut")), 
+                                    LocalDate.parse(rs.getString("date_commande"), DateTimeFormatter.ofPattern("dd/MM/yyyy")),
                                     new Client(rs.getInt("id_client"), 
                                             rs.getString("nom"), 
                                             rs.getString("prenom"), 
                                             rs.getString("email"), 
                                             rs.getString("telephone"), 
-                                            Client.Type.valueOf(rs.getString("type"))));
+                                            Client.Type.valueOf(rs.getString("statut"))));
                 commandes.add(commande);
             }   
         } catch (SQLException ex) {

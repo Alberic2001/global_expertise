@@ -9,6 +9,7 @@ import com.jfoenix.controls.JFXButton;
 import dao.AdresseDao;
 import dao.UserDao;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Optional;
@@ -160,6 +161,15 @@ public class AddressService implements IService<Adresse> {
 
     public void setUtils(Utils utils) {
         this.utils = utils;
+    }
+
+    @Override
+    public List<String> comboBoxListToString(List<Adresse> addresses) {
+        List<String> addressNames = new ArrayList();
+        while (addresses.listIterator().hasNext()) {
+            addressNames.add(addresses.listIterator().next().getRue()+" "+addresses.listIterator().next().getQuartier()+" "+addresses.listIterator().next().getVille()+" "+addresses.listIterator().next().getDetails());
+        }
+        return addressNames;
     }
     
     

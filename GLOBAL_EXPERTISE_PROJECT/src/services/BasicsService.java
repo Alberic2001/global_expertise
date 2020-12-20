@@ -13,6 +13,7 @@ import dao.ProduitCommandeDao;
 import dao.UserDao;
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Optional;
@@ -215,7 +216,14 @@ public class BasicsService {
             return cell;
     }
     
-    
+    public List<String> comboBoxListToString(List<User> users) {
+        List<String> usersNames = new ArrayList();
+        while (users.listIterator().hasNext()) {
+            if(users.listIterator().next().getType().equals(User.Type.EMPLOYE) && ((Employe)users.listIterator().next()).getService().equals("Commercial"))
+            usersNames.add(users.listIterator().next().getNom()+" "+users.listIterator().next().getPrenom());
+        }
+        return usersNames;
+    }
     
     
     public UserDao getUserDao() {

@@ -28,13 +28,12 @@
       </Label>
       <JFXTextField fx:id="commandNumberTextField" layoutX="545.0" layoutY="58.0" prefHeight="31.0" prefWidth="236.0" />
       <JFXDatePicker fx:id="datePicker" editable="false" layoutX="811.0" layoutY="58.0" prefHeight="31.0" prefWidth="236.0" />
-      <JFXComboBox fx:id="productCodeComb" editable="true" layoutX="358.0" layoutY="139.0" prefHeight="31.0" prefWidth="206.0" promptText="Code Produit" />
       <JFXComboBox fx:id="categoryComb" editable="true" layoutX="62.0" layoutY="139.0" prefHeight="31.0" prefWidth="269.0" promptText="Catégorie" />
-      <JFXComboBox fx:id="productNameComb" editable="true" layoutX="582.0" layoutY="139.0" prefHeight="31.0" prefWidth="269.0" promptText="Libellé du produit" />
-      <JFXTextField fx:id="quantityTextField" layoutX="879.0" layoutY="139.0" prefHeight="31.0" prefWidth="100.0" promptText="Quantité" />
-      <JFXTextField fx:id="unitPriceTextField" editable="false" layoutX="1007.0" layoutY="139.0" prefHeight="31.0" prefWidth="109.0" promptText="PU" />
-      <JFXTextField fx:id="totalPriceTextField" editable="false" layoutX="1142.0" layoutY="139.0" prefHeight="31.0" prefWidth="138.0" promptText="Prix total" />
-      <JFXButton fx:id="addProductBtn" buttonType="RAISED" layoutX="1309.0" layoutY="139.0" stylesheets="@../style/style.css" text="Ajouter" textFill="WHITE">
+      <JFXComboBox fx:id="productNameComb" editable="true" layoutX="365.0" layoutY="139.0" prefHeight="31.0" prefWidth="269.0" promptText="Libellé du produit" />
+      <JFXTextField fx:id="quantityTextField" layoutX="665.0" layoutY="139.0" prefHeight="31.0" prefWidth="138.0" promptText="Quantité" />
+      <JFXTextField fx:id="unitPriceTextField" editable="false" layoutX="837.0" layoutY="139.0" prefHeight="31.0" prefWidth="155.0" promptText="PU" />
+      <JFXTextField fx:id="totalPriceTextField" editable="false" layoutX="1027.0" layoutY="139.0" prefHeight="31.0" prefWidth="219.0" promptText="Prix total" />
+      <JFXButton fx:id="addProductBtn" buttonType="RAISED" layoutX="1309.0" layoutY="139.0" onAction="#addProduct" stylesheets="@../style/style.css" text="Ajouter" textFill="WHITE">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
@@ -46,10 +45,9 @@
                   <TableColumn fx:id="codeTblc" prefWidth="200.0" text="Code" />
                   <TableColumn fx:id="productNameTblc" prefWidth="262.0" text="Libellé" />
                   <TableColumn fx:id="priceTblc" prefWidth="139.0" text="Prix Unitaire" />
-                  <TableColumn fx:id="quantityTblc" prefWidth="122.0" text="Quantité" />
-                  <TableColumn fx:id="totalPriceTblc" prefWidth="140.0" text="Prix Total" />
-                  <TableColumn fx:id="categoryNameTblc" prefWidth="292.0" text="Libellé Catégorie" />
-                  <TableColumn fx:id="actionsTblc" prefWidth="166.0" text="Fonctionnalités" />
+                  <TableColumn fx:id="quantityTblc" prefWidth="163.0" text="Quantité" />
+                  <TableColumn fx:id="categoryNameTblc" prefWidth="251.0" text="Libellé Catégorie" />
+                  <TableColumn fx:id="actionsTblc" prefWidth="306.0" text="Fonctionnalités" />
                </columns>
             </TableView>
          </content>
@@ -69,7 +67,7 @@
       </ScrollPane>
       <ScrollPane layoutX="47.0" layoutY="701.0" prefHeight="200.0" prefWidth="1341.0">
          <content>
-            <TableView fx:id="addressesTblv" prefHeight="198.0" prefWidth="1339.0" stylesheets="@../style/style.css">
+            <TableView fx:id="addressesTblv" prefHeight="198.0" prefWidth="1305.0" stylesheets="@../style/style.css">
                <columns>
                   <TableColumn fx:id="roadTblc" prefWidth="235.0" text="Rue" />
                   <TableColumn fx:id="districtTblc" prefWidth="293.0" text="Quartier" />
@@ -90,14 +88,14 @@
             <Font name="System Bold" size="15.0" />
          </font>
       </JFXButton>
-      <JFXTextField fx:id="clientSearchTextField" layoutX="1107.0" layoutY="58.0" prefHeight="31.0" prefWidth="275.0" promptText="Search" text="Search Client">
+      <JFXTextField fx:id="clientSearchTextField" layoutX="1107.0" layoutY="58.0" prefHeight="31.0" prefWidth="275.0" promptText="Search Client">
          <font>
             <Font name="Roboto" size="15.0" />
          </font>
       </JFXTextField>
-      <ImageView fitHeight="17.0" fitWidth="17.0" layoutX="1365.0" layoutY="65.0">
+      <ImageView fitHeight="21.0" fitWidth="21.0" layoutX="1353.0" layoutY="62.0">
          <image>
-            <Image url="@../global_expertise/GLOBAL_EXPERTISE_PROJECT/src/views/images/search.png" />
+            <Image url="@../images/search.png" />
          </image>
       </ImageView>
       <JFXButton fx:id="previewBtn" alignment="CENTER" buttonType="RAISED" disable="true" layoutX="987.0" layoutY="909.0" onAction="#handleLoadPreviewCommandWindow" prefHeight="31.0" prefWidth="196.0" style="-fx-background-color: #FEA960;" stylesheets="@../style/style.css" text="Preview BonCommande" textAlignment="CENTER" textFill="WHITE">

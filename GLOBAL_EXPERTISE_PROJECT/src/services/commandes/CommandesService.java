@@ -10,6 +10,7 @@ import dao.CategorieDao;
 import dao.CommandeDao;
 import dao.ProduitCommandeDao;
 import dao.ProduitDao;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Optional;
@@ -172,6 +173,15 @@ public class CommandesService implements IService<Commande> {
             };
 
             return cell;
+    }
+
+    @Override
+    public List<String> comboBoxListToString(List<Commande> commands) {
+        List<String> commandsNames = new ArrayList();
+        while (commands.listIterator().hasNext()) {
+            commandsNames.add(commands.listIterator().next().getNumCommande()+" "+commands.listIterator().next().getDate()+" "+commands.listIterator().next().getClient());
+        }
+        return commandsNames;
     }
 
     

@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,13 +20,10 @@ import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Modality;
 import javafx.util.Callback;
 import models.Adresse;
 import models.User;
@@ -123,9 +119,6 @@ public class ListUsersController implements Initializable {
         emailTblc.setCellValueFactory(new PropertyValueFactory<>("email"));
         numberTblc.setCellValueFactory(new PropertyValueFactory<>("telephone"));
         typeTblc.setCellValueFactory(new PropertyValueFactory<>("type"));
-
-        
-        
 
         roadTblc.setCellValueFactory(new PropertyValueFactory<>("rue"));
         districtTblc.setCellValueFactory(new PropertyValueFactory<>("quartier"));
