@@ -51,18 +51,13 @@ public class CategoryService implements IService<Categorie> {
         return this.categorieDao.update(categorie);
     }
     
-    
-    public void delete(Categorie categorie, List<Produit> productsOfCategory){
-        ListIterator<Produit> li = productsOfCategory.listIterator();
+    @Override
+    public void delete(Categorie categorie){
+        ListIterator<Produit> li = this.getProduitDao().selectAllForOne(categorie.getIdCategorie()).listIterator();
         while (li.hasNext()) {
             this.produitDao.delete(li.next().getIdProduit());
         }
             this.categorieDao.delete(categorie.getIdCategorie());
-    }
-    
-    @Override
-    public void delete(Categorie categorie){
-        this.categorieDao.delete(categorie.getIdCategorie());
     }
     
     @Override

@@ -24,7 +24,7 @@ public class ProduitDao implements IDao<Produit> {
     private DaoMysql daoMysql;
     
     private String SQL_SELECT_ALL_PRODUITS = "SELECT * FROM `produit` INNER JOIN `categorie` ON `produit`.id_categorie=`categorie`.id_categorie WHERE `produit`.id_categorie=`categorie`.id_categorie";
-    private String SQL_SELECT_ALL_PRODUITS_OF_ONE_CATEGORIE = "SELECT * FROM `produit` INNER JOIN `categorie` ON `produit`.id_categorie=`categorie`.id_categorie WHERE `produit`.id_produit=?";
+    private String SQL_SELECT_ALL_PRODUITS_OF_ONE_CATEGORIE = "SELECT * FROM `produit` INNER JOIN `categorie` ON `produit`.id_categorie=`categorie`.id_categorie WHERE `categorie`.id_categorie=? LIMIT 10";
     private String SQL_INSERT_PRODUIT = "INSERT INTO `produit`(`code`, `libelle`, `prix`, `quantite`, `id_categorie`) VALUES (?,?,?,?,?)";
     private String SQL_UPDATE_PRODUIT = "UPDATE `produit` SET `libelle`=?,`prix`=?,`quantite`=?,`id_categorie`=? WHERE id_produit=?";
     private final String SQL_DELETE_PRODUIT = "DELETE FROM `produit` WHERE id_produit=?";
@@ -94,12 +94,13 @@ public class ProduitDao implements IDao<Produit> {
         try {
             ps.setInt(1, idCategorie);
             ResultSet rs = ps.executeQuery();
-            if(rs.next()){
-                Produit produit = new Produit(rs.getInt("id_produit"),
+            while(rs.next()){
+                Produit produit = new Produit(
+                        rs.getInt("id_produit"),
                         rs.getString("code"),
                         rs.getString("libelle"),
                         rs.getDouble("prix"),
-                        rs.getInt("id_categorie"),
+                        rs.getInt("quantite"),
                         new Categorie(rs.getInt("id_categorie"), rs.getString("num_categorie"), rs.getString("libelle"), rs.getString("description")));
                 produits.add(produit);
             }   

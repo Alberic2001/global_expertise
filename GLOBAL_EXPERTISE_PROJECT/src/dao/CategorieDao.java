@@ -80,7 +80,7 @@ public class CategorieDao implements IDao<Categorie> {
         return categories;
     }
     
-    
+    @Override
     public List<Categorie> selectAllForOne(int id) {
         daoMysql.getConnection();
         daoMysql.initPS(SQL_SELECT_ONE_CATEGORIE);

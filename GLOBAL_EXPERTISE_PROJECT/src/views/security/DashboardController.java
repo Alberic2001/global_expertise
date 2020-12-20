@@ -120,6 +120,11 @@ public class DashboardController implements Initializable {
     
     @FXML
     private void loadCategoriesAndProductsListingView(ActionEvent event) {
+        try {
+            this.loadView("../stock/listCategories", viewLoader);
+        } catch (IOException ex) {
+            Logger.getLogger(DashboardController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     @FXML
