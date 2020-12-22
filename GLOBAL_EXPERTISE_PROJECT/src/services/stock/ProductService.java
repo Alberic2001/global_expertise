@@ -46,7 +46,7 @@ public class ProductService implements IService<Produit> {
         Produit produit = null;
         while (li.hasNext()) {
             produit = li.next();
-            if (produit.getCode().equals(value) || produit.getLibelle().equals(value))
+            if (produit.getCode().equals(value) || produit.getLibelle().equals(value) || String.valueOf(produit.getIdProduit()).equals(value))
                 return produit;
         }
         return produit;

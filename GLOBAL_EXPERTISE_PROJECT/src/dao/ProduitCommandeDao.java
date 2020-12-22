@@ -9,11 +9,12 @@ import dao.interfaces.IDao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import models.Categorie;
 import models.Client;
 import models.Commande;
 import models.Produit;
@@ -32,7 +33,7 @@ public class ProduitCommandeDao implements IDao<ProduitCommande> {
     private CommandeDao commandeDao;
     
     private String SQL_SELECT_ALL_PRODUITS_OF_COMMANDE = "SELECT * FROM `produit` INNER JOIN produit_commande ON produit.id_produit=produit_commande.id_produit INNER JOIN commande ON produit_commande.id_commande=commande.id_commande  INNER JOIN user ON commande.id_client=user.id_user WHERE commande.statut='NON_LIVRE'";
-    private String SQL_SELECT_ALL_PRODUITS_OF_ONE_COMMANDE = SQL_SELECT_ALL_PRODUITS_OF_COMMANDE+" AND commande.id_client=?";
+    private String SQL_SELECT_ALL_PRODUITS_OF_ONE_COMMANDE = SQL_SELECT_ALL_PRODUITS_OF_COMMANDE+" AND commande.id_commande=?";
     private String SQL_INSERT_PRODUIT_IN_COMMANDE = "INSERT INTO `produit_commande`(`id_produit`, `id_commande`) VALUES (?,?)";
     private String SQL_DELETE_PRODUIT_COMMANDE = "DELETE FROM `produit_commande` WHERE id_commande=?";
     
@@ -77,10 +78,17 @@ public class ProduitCommandeDao implements IDao<ProduitCommande> {
                 ProduitCommande produitCommande = new ProduitCommande(rs.getInt("id_produitcommande"), 
                                     rs.getInt("id_produit"),
                                     rs.getInt("id_commande"));
-                /*
+                
                 Commande commande = new Commande(rs.getInt("id_commande"), 
                                     rs.getString("num_commande"), 
-                                    Commande.Statut.valueOf(rs.getString("statut")));
+                                    Commande.Statut.valueOf(rs.getString("statut")),
+                                    LocalDate.parse(rs.getString("date_commande"), DateTimeFormatter.ofPattern("dd/MM/yyyy")),
+                                    new Client(rs.getInt("id_client"), 
+                                            rs.getString("nom"), 
+                                            rs.getString("prenom"), 
+                                            rs.getString("email"), 
+                                            rs.getString("telephone"), 
+                                            Client.Type.valueOf(rs.getString("type"))));
                 commandeDao.selectAllForOne(rs.getInt("id_client"));
                 Produit produit = new Produit(rs.getInt("id_produit"),
                                 rs.getString("code"),
@@ -88,7 +96,7 @@ public class ProduitCommandeDao implements IDao<ProduitCommande> {
                                 rs.getDouble("prix"),
                                 rs.getInt("id_categorie"));
                 produitDao.selectAllForOne(rs.getInt("id_categorie"));
-                */
+                
                 produitCommandes.add(produitCommande);
             }
         } catch (SQLException ex) {
@@ -99,13 +107,13 @@ public class ProduitCommandeDao implements IDao<ProduitCommande> {
         return produitCommandes;
     }
     
-    public List<ProduitCommande> selectAllForOne(int idClient) {
+    public List<ProduitCommande> selectAllForOne(int idCommande) {
         daoMysql.getConnection();
         daoMysql.initPS(SQL_SELECT_ALL_PRODUITS_OF_ONE_COMMANDE);
         List<ProduitCommande> produitcommandes = new ArrayList();
         PreparedStatement ps =daoMysql.getPstm();
         try {
-            ps.setInt(1, idClient);
+            ps.setInt(1, idCommande);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
                 ProduitCommande produitCommande = new ProduitCommande(rs.getInt("id_produitcommande"), 

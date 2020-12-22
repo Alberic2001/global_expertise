@@ -12,8 +12,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="957.0" prefWidth="1421.0" stylesheets="@../style/style.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111" fx:controller="views.command.ListCommandsController">
+<AnchorPane id="AnchorPane" prefHeight="957.0" prefWidth="1421.0" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.command.ListCommandsController">
    <children>
       <Label layoutX="507.0" layoutY="7.0" text="Lister Commandes" textAlignment="CENTER" textFill="#545871">
          <font>
@@ -22,12 +21,12 @@
       </Label>
       <ScrollPane layoutX="49.0" layoutY="157.0" prefHeight="386.0" prefWidth="1324.0">
          <content>
-            <TableView fx:id="productsTblv" prefHeight="384.0" prefWidth="1322.0" stylesheets="@../style/style.css">
+            <TableView fx:id="commandsTblv" prefHeight="384.0" prefWidth="1322.0" stylesheets="@../style/style.css">
                <columns>
                   <TableColumn fx:id="commandNumberTblc" prefWidth="230.99996948242188" text="Numéro Commande" />
                   <TableColumn fx:id="statusTblc" prefWidth="231.00003051757812" text="Statut" />
-                  <TableColumn fx:id="clientNameTblc" prefWidth="282.0" text="Nom du client" />
                   <TableColumn fx:id="commandDateTblc" prefWidth="277.0" text="Date Commande" />
+                  <TableColumn fx:id="clientNameTblc" prefWidth="282.0" text="Nom du client" />
                   <TableColumn fx:id="actionsTblc" prefWidth="300.0" text="Fonctionnalités" />
                </columns>
             </TableView>
@@ -46,14 +45,13 @@
       </ImageView>
       <ScrollPane layoutX="49.0" layoutY="596.0" prefHeight="309.0" prefWidth="1324.0">
          <content>
-            <TableView fx:id="productsTblv1" prefHeight="307.0" prefWidth="1322.0" stylesheets="@../style/style.css">
+            <TableView fx:id="productsTblv" prefHeight="307.0" prefWidth="1322.0" stylesheets="@../style/style.css">
                <columns>
-                  <TableColumn fx:id="codeTblc" prefWidth="165.0" text="Code" />
-                  <TableColumn fx:id="productNameTblc" prefWidth="320.9999694824219" text="Libellé Produit" />
-                  <TableColumn fx:id="totalPriceTblc1" prefWidth="172.0" text="Prix Total" />
-                  <TableColumn fx:id="quantityCommandedTblc" prefWidth="215.0" text="Quantité Commandée" />
-                  <TableColumn fx:id="quantityInStockTblc" prefWidth="185.0" text="Quantité en Stock" />
-                  <TableColumn fx:id="productActionsTblc" prefWidth="263.0" text="Fonctionnalités" />
+                  <TableColumn fx:id="codeTblc" prefWidth="202.00003051757812" text="Code" />
+                  <TableColumn fx:id="productNameTblc" prefWidth="445.9999694824219" text="Libellé Produit" />
+                  <TableColumn fx:id="totalPriceTblc" prefWidth="215.0" text="Prix Total" />
+                  <TableColumn fx:id="quantityCommandedTblc" prefWidth="227.0" text="Quantité Commandée" />
+                  <TableColumn fx:id="quantityInStockTblc" prefWidth="231.0" text="Quantité en Stock" />
                </columns>
             </TableView>
          </content>

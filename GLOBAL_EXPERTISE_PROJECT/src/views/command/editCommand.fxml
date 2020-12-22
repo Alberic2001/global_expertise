@@ -44,10 +44,9 @@
                <columns>
                   <TableColumn fx:id="codeTblc" prefWidth="200.0" text="Code" />
                   <TableColumn fx:id="productNameTblc" prefWidth="262.0" text="Libellé" />
-                  <TableColumn fx:id="priceTblc" prefWidth="139.0" text="Prix Unitaire" />
-                  <TableColumn fx:id="quantityTblc" prefWidth="163.0" text="Quantité" />
-                  <TableColumn fx:id="categoryNameTblc" prefWidth="251.0" text="Libellé Catégorie" />
-                  <TableColumn fx:id="actionsTblc" prefWidth="306.0" text="Fonctionnalités" />
+                  <TableColumn fx:id="priceTblc" prefWidth="206.0" text="Prix Unitaire" />
+                  <TableColumn fx:id="quantityTblc" prefWidth="252.0" text="Quantité" />
+                  <TableColumn fx:id="actionsTblc" prefWidth="401.0" text="Fonctionnalités" />
                </columns>
             </TableView>
          </content>

@@ -65,8 +65,6 @@ public class EditCommandController implements Initializable  {
     @FXML
     private TableColumn<Produit, String> quantityTblc;
     @FXML
-    private TableColumn<Categorie, String> categoryNameTblc;
-    @FXML
     private TableColumn actionsTblc;
     @FXML
     private TableView<User> usersTblv;
@@ -169,7 +167,7 @@ public class EditCommandController implements Initializable  {
         categoryService = new CategoryService();
         
         
-        
+        /*
         userService.getUserDao().setTypeOfSelect("SQL_SELECT_ALL_EMPLOYES");
         oblVendorList.addAll(userService.comboBoxListToString(userService.listUsers()));
         vendorComb.setItems(oblVendorList);
@@ -190,15 +188,16 @@ public class EditCommandController implements Initializable  {
         });
         
         quantityTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-            totalPriceTextField.setText((Integer.parseInt(unitPriceTextField.getText())*Integer.parseInt(newValue)));
+            //totalPriceTextField.setText((Integer.parseInt(unitPriceTextField.getText())*Integer.parseInt(newValue)));
         });
         
+        */
         
         codeTblc.setCellValueFactory(new PropertyValueFactory<>("code"));
         productNameTblc.setCellValueFactory(new PropertyValueFactory<>("libelle"));
         priceTblc.setCellValueFactory(new PropertyValueFactory<>("prix"));
         quantityTblc.setCellValueFactory(new PropertyValueFactory<>("quantité")); 
-        categoryNameTblc.setCellValueFactory(new PropertyValueFactory<>("libelle"));
+        
         
         nameTblc.setCellValueFactory(new PropertyValueFactory<>("nom"));
         surnameTblc.setCellValueFactory(new PropertyValueFactory<>("prenom"));

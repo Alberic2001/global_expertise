@@ -89,7 +89,7 @@ public class CommandeDao implements IDao<Commande> {
                                             rs.getString("prenom"), 
                                             rs.getString("email"), 
                                             rs.getString("telephone"), 
-                                            Client.Type.valueOf(rs.getString("statut"))));
+                                            Client.Type.valueOf(rs.getString("type"))));
                 commandes.add(commande);
             }
         } catch (SQLException ex) {
