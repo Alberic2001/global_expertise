@@ -12,6 +12,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,10 +20,13 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
 import javafx.util.Callback;
 import models.Commande;
 import models.Produit;
@@ -130,15 +134,31 @@ public class ListCommandsController implements Initializable {
         sortedData.comparatorProperty().bind(commandsTblv.comparatorProperty());
         // Add sorted (and filtered data to the table)
         commandsTblv.setItems(sortedData);
-        
         statusComb.setItems(oblStatusList);
-        
-        
         Callback<TableColumn<Commande, String>, TableCell<Commande, String>> cellFactory = (param) -> {
             return commandService.addCellFactory(oblCommandsList, commandsTblv, sortedData);
         };
-        
         actionsTblc.setCellFactory(cellFactory);
+        
+        Callback<TableColumn<Commande, String>, TableCell<Commande, String>> cellNameFactory = (param) -> {
+            final TableCell<Commande, String> cell = new TableCell<Commande, String>() {
+                //Override updateItem method
+                @Override
+                public void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+                    //Ensure that cell is created only on non-empty rows
+                    if (empty) {
+                        setGraphic(null);
+                        setText(null);
+                    } else {
+                        final String clientName = getTableView().getItems().get(getIndex()).getClient().getPrenom()+" "+getTableView().getItems().get(getIndex()).getClient().getNom();
+                        setText(clientName);
+                    }
+                }
+            };
+            return cell;
+        };
+        clientNameTblc.setCellFactory(cellNameFactory);
         
         statusComb.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             ObservableList<Commande> oblNewCommandsList = FXCollections.observableArrayList();
@@ -166,14 +186,11 @@ public class ListCommandsController implements Initializable {
             commandsTblv.setItems(sortedData);
         });
             
-            commandsTblv.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+        commandsTblv.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             modifyBtn.setDisable(false);
             oblProductsList.clear();
-            List<ProduitCommande> prodCom = commandService.getProduitCommandeDao().selectAllForOne(newValue.getIdCommande());
-                while(prodCom.listIterator().hasNext()){
-                    oblProductsList.add(productService.printSpecific(String.valueOf(prodCom.listIterator().next().getIdProduit())));
-                }
-                productsTblv.setItems(oblProductsList);
-            });
-    }    
+            oblProductsList.addAll(productService.getProductsOfCommand(newValue.getIdCommande()));
+            productsTblv.setItems(oblProductsList);
+        });
+    }
 }
