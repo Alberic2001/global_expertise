@@ -71,6 +71,10 @@ public class ProductService implements IService<Produit> {
     public List<Produit> list(){
         return produitDao.selectAll();
     }
+    
+    public List<Produit> getProductsOfCommand(int idCommande){
+        return this.produitDao.selectProductsOfCommand(idCommande);
+    }
 
     
     

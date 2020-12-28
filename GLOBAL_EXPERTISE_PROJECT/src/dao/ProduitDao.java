@@ -25,6 +25,7 @@ public class ProduitDao implements IDao<Produit> {
     
     private String SQL_SELECT_ALL_PRODUITS = "SELECT * FROM `produit` INNER JOIN `categorie` ON `produit`.id_categorie=`categorie`.id_categorie WHERE `produit`.id_categorie=`categorie`.id_categorie";
     private String SQL_SELECT_ALL_PRODUITS_OF_ONE_CATEGORIE = "SELECT * FROM `produit` INNER JOIN `categorie` ON `produit`.id_categorie=`categorie`.id_categorie WHERE `categorie`.id_categorie=? LIMIT 10";
+    private String SQL_SELECT_ALL_PRODUITS_OF_ONE_COMMAND = "SELECT * FROM `categorie` INNER JOIN `produit` ON `produit`.id_categorie=`categorie`.id_categorie INNER JOIN `produit_commande` ON `produit`.`id_produit`=`produit_commande`.`id_produit` INNER JOIN commande ON produit_commande.id_commande=commande.id_commande WHERE `commande`.`id_commande`=?";
     private String SQL_INSERT_PRODUIT = "INSERT INTO `produit`(`code`, `libelle`, `prix`, `quantite`, `id_categorie`) VALUES (?,?,?,?,?)";
     private String SQL_UPDATE_PRODUIT = "UPDATE `produit` SET `libelle`=?,`prix`=?,`quantite`=?,`id_categorie`=? WHERE id_produit=?";
     private final String SQL_DELETE_PRODUIT = "DELETE FROM `produit` WHERE id_produit=?";
@@ -102,6 +103,32 @@ public class ProduitDao implements IDao<Produit> {
                         rs.getDouble("prix"),
                         rs.getInt("quantite"),
                         new Categorie(rs.getInt("id_categorie"), rs.getString("num_categorie"), rs.getString("libelle"), rs.getString("description")));
+                produits.add(produit);
+            }   
+        } catch (SQLException ex) {
+            Logger.getLogger(ProduitDao.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            daoMysql.CloseConnection();
+        }
+        return produits;
+    }
+    
+    public List<Produit> selectProductsOfCommand(int idCommande){
+        daoMysql.getConnection();
+        daoMysql.initPS(SQL_SELECT_ALL_PRODUITS_OF_ONE_COMMAND);
+        List<Produit> produits = new ArrayList();
+        PreparedStatement ps =daoMysql.getPstm();
+        try {
+            ps.setInt(1, idCommande);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                Produit produit = new Produit(
+                        rs.getInt("id_produit"),
+                        rs.getString("code"),
+                        rs.getString("produit.libelle"),
+                        rs.getDouble("prix"),
+                        rs.getInt("quantite"),
+                        new Categorie(rs.getInt("id_categorie"), rs.getString("num_categorie"), rs.getString("categorie.libelle"), rs.getString("description")));
                 produits.add(produit);
             }   
         } catch (SQLException ex) {
