@@ -127,6 +127,16 @@ public class BasicsService {
         return user;
     }
     
+    public User createUser(User user){
+        user = this.userDao.add(user);
+        return user;
+    }
+    
+    public User updateUser(User user){
+        user = this.userDao.update(user);
+        return user;
+    }
+    
     public void deleteUser(User user){
         //ListIterator<Adresse> li = adresses.listIterator();
         ListIterator<Adresse> adresses = this.getAdresseDao().selectAllForOne(user.getId()).listIterator();

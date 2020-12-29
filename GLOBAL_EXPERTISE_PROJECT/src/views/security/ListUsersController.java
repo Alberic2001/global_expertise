@@ -83,7 +83,9 @@ public class ListUsersController implements Initializable {
         return ctrler;
     }
     @FXML
-    private JFXButton addUserBtn;
+    private JFXButton addEmployeeBtn;
+    @FXML
+    private JFXButton addClientBtn;
 
     public User getUser() {
         return user;
@@ -213,11 +215,20 @@ public class ListUsersController implements Initializable {
         userService.getUtils().loadWindow(usersTblv, "security/addAdress");
     }
 
-    @FXML
     private void handleLoadAddUserWindow(ActionEvent event) throws IOException {
         userService.getUtils().loadWindow(usersTblv, "security/createuser");
         //CreateuserController.getCtrler().getUserChoiceToggleButton().isSelected();
         //CreateuserController.getCtrler().getUserChoiceToggleButton().setDisable(true);
+    }
+
+    @FXML
+    private void handleLoadAddEmployeWindow(ActionEvent event) throws IOException {
+        userService.getUtils().loadWindow(usersTblv, "security/createEmploye");
+    }
+
+    @FXML
+    private void handleLoadAddClientWindow(ActionEvent event) throws IOException {
+        userService.getUtils().loadWindow(usersTblv, "security/createClient");
     }
 
 }
