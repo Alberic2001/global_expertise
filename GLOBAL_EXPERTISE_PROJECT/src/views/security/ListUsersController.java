@@ -82,6 +82,8 @@ public class ListUsersController implements Initializable {
     public static ListUsersController getCtrler() {
         return ctrler;
     }
+    @FXML
+    private JFXButton addUserBtn;
 
     public User getUser() {
         return user;
@@ -209,6 +211,13 @@ public class ListUsersController implements Initializable {
     @FXML
     private void handleLoadAddAddressWindow(ActionEvent event) throws IOException {
         userService.getUtils().loadWindow(usersTblv, "security/addAdress");
+    }
+
+    @FXML
+    private void handleLoadAddUserWindow(ActionEvent event) throws IOException {
+        userService.getUtils().loadWindow(usersTblv, "security/createuser");
+        //CreateuserController.getCtrler().getUserChoiceToggleButton().isSelected();
+        //CreateuserController.getCtrler().getUserChoiceToggleButton().setDisable(true);
     }
 
 }

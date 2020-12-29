@@ -91,7 +91,7 @@ public class CreateuserController implements Initializable {
     @FXML
     private JFXToggleButton userChoiceToggleButton;
     
-    
+    private static CreateuserController ctrler;
     private BasicsService service;
     private User existingUser;
     private User userToAdd;
@@ -109,11 +109,23 @@ public class CreateuserController implements Initializable {
     @FXML
     private GridPane textFieldsGridPane;
     
+    
+    public static CreateuserController getCtrler() {
+        return ctrler;
+    }
+
+    public JFXToggleButton getUserChoiceToggleButton() {
+        return userChoiceToggleButton;
+    }
+    
+    
+    
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        ctrler = this;
         service = new BasicsService();
         existingUser = null;
         userToAdd = null;
@@ -250,7 +262,7 @@ public class CreateuserController implements Initializable {
 
     @FXML
     private void createUser(ActionEvent event) {
-        if(validateAllTextFields() == true){
+        if(validateAllTextFields() == false){
             if(userChoiceToggleButton.isSelected()){
                 userToAdd = new Employe(loginTextField.getText(), passwordTextField.getText(), serviceTextField.getText(), nameTextField.getText(), surnameTextField.getText(), emailTextField.getText(), numberTextField.getText(), Type.EMPLOYE);
             } else {

@@ -27,7 +27,11 @@
                   <TableColumn fx:id="statusTblc" prefWidth="231.00003051757812" text="Statut" />
                   <TableColumn fx:id="commandDateTblc" prefWidth="277.0" text="Date Commande" />
                   <TableColumn fx:id="clientNameTblc" prefWidth="282.0" text="Nom du client" />
-                  <TableColumn fx:id="actionsTblc" prefWidth="300.0" text="Fonctionnalités" />
+                  <TableColumn fx:id="actionsTblc" prefWidth="126.0" text="Fonctionnalités">
+                     <columns>
+                        <TableColumn fx:id="deleteTblc" minWidth="9.0" prefWidth="151.0" />
+                        <TableColumn fx:id="attenteTblc" prefWidth="147.0" />
+                     </columns></TableColumn>
                </columns>
             </TableView>
          </content>

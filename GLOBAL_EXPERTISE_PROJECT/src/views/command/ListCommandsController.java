@@ -11,8 +11,6 @@ import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,19 +18,14 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Modality;
 import javafx.util.Callback;
 import models.Commande;
 import models.Produit;
-import models.ProduitCommande;
 import models.User;
-import services.AddressService;
 import services.BasicsService;
 import services.commandes.CommandesService;
 import services.stock.ProductService;
@@ -83,6 +76,14 @@ public class ListCommandsController implements Initializable {
     private CommandesService commandService;
     private ProductService productService;
     private User user;
+    @FXML
+    private TableColumn deleteTblc;
+    @FXML
+    private TableColumn attenteTblc;
+
+    public static ListCommandsController getCtrler() {
+        return ctrler;
+    }
     
     
     /**
@@ -138,7 +139,11 @@ public class ListCommandsController implements Initializable {
         Callback<TableColumn<Commande, String>, TableCell<Commande, String>> cellFactory = (param) -> {
             return commandService.addCellFactory(oblCommandsList, commandsTblv, sortedData);
         };
-        actionsTblc.setCellFactory(cellFactory);
+        Callback<TableColumn<Commande, String>, TableCell<Commande, String>> statusCellFactory = (param) -> {
+            return commandService.addStatusCellFactory(oblCommandsList, commandsTblv, sortedData);
+        };
+        deleteTblc.setCellFactory(cellFactory);
+        attenteTblc.setCellFactory(statusCellFactory);
         
         Callback<TableColumn<Commande, String>, TableCell<Commande, String>> cellNameFactory = (param) -> {
             final TableCell<Commande, String> cell = new TableCell<Commande, String>() {

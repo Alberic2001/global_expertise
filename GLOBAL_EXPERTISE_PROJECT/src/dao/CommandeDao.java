@@ -32,7 +32,7 @@ public class CommandeDao implements IDao<Commande> {
     private String SQL_SELECT_ALL_COMMANDES = "SELECT * FROM `commande` INNER JOIN user ON commande.id_client=user.id_user WHERE type='CLIENT'";
     private String SQL_SELECT_ALL_COMMANDES_OF_ONE_CLIENT = SQL_SELECT_ALL_COMMANDES+" AND user.id_user=?";
     private String SQL_INSERT_COMMANDE = "INSERT INTO `commande`(`num_commande`, `statut`, `id_client`) VALUES (?,?,?)";
-    private String SQL_UPDATE_COMMANDE = "";
+    private String SQL_UPDATE_COMMANDE = "UPDATE `commande` SET `statut`=? where id_commande=?";
     private String SQL_DELETE_COMMANDE = "DELETE FROM `commande` WHERE id_commande=?";
     
     public CommandeDao() {
@@ -131,8 +131,20 @@ public class CommandeDao implements IDao<Commande> {
     }
 
     @Override
-    public Commande update(Commande obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Commande update(Commande commande) {
+        daoMysql.getConnection();
+        daoMysql.initPS(SQL_UPDATE_COMMANDE);
+        PreparedStatement ps =daoMysql.getPstm();
+        try {
+            ps.setString(1, commande.getStatut().name());
+            ps.setInt(2, commande.getIdCommande());
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(CommandeDao.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            daoMysql.CloseConnection();
+        }
+        return commande;
     }
 
     @Override

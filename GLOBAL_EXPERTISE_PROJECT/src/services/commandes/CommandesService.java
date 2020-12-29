@@ -6,6 +6,7 @@
 package services.commandes;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXPasswordField;
 import dao.CategorieDao;
 import dao.CommandeDao;
 import dao.ProduitCommandeDao;
@@ -18,15 +19,16 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
-import models.Adresse;
 import models.Commande;
-import services.BasicsService;
 import services.IService;
 import utils.Utils;
+import views.security.ConnexionController;
 
 /**
  *
@@ -72,8 +74,8 @@ public class CommandesService implements IService<Commande> {
     }
 
     @Override
-    public Commande update(Commande obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Commande update(Commande command) {
+        return this.commandeDao.update(command);
     }
 
     @Override
@@ -132,6 +134,7 @@ public class CommandesService implements IService<Commande> {
             TableView<Commande> commandsTblv, 
             SortedList<Commande> sortedData) {
         
+        //List<TableCell<Commande, String>> list = new ArrayList(Arrays.asList());
         final TableCell<Commande, String> cell = new TableCell<Commande, String>() {
                 //Override updateItem method
                 @Override
@@ -174,6 +177,67 @@ public class CommandesService implements IService<Commande> {
 
             return cell;
     }
+    
+    
+    
+    public TableCell<Commande, String> addStatusCellFactory(ObservableList<Commande> oblCommandsList, 
+            TableView<Commande> commandsTblv, 
+            SortedList<Commande> sortedData) {
+        
+        final TableCell<Commande, String> statusCell = new TableCell<Commande, String>() {
+                //Override updateItem method
+                @Override
+                public void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (empty) {
+                        setGraphic(null);
+                        setText(null);
+                    } else {
+                        final JFXButton statusBtn = new JFXButton("Mettre en attente");
+                        statusBtn.setOnAction(event -> {
+                            Commande command = getTableView().getItems().get(getIndex());
+                            //Confirm
+                            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                            Label errorLbl = new Label();
+                            alert.initModality(Modality.APPLICATION_MODAL);
+                            alert.setHeaderText("Mise en attente");
+                            GridPane gridPane = new GridPane();
+                            JFXPasswordField password = new JFXPasswordField();
+                            password.setPromptText("Enter your email password");
+                            gridPane.add(new Label("En faisant cela, vous mettrez la commande "
+                                    + command.getNumCommande() + " " + command.getStatut() + " du client" +
+                                    command.getClient().toString() + " en attente"
+                                    +"\nEtes-vous sûr de vouloir faire cela" + " ?"), 0, 0);
+                            gridPane.add(password, 0, 1);
+                            gridPane.add(errorLbl, 0, 2);
+                            alert.getDialogPane().setContent(gridPane);
+                            Optional<ButtonType> result = alert.showAndWait();
+                            if (result.get() == ButtonType.OK) {
+                                if(password.getText().isEmpty()){
+                                    errorLbl.setText("Remplissez le champ");
+                                } else {
+                                    utils.sendEmail(ConnexionController.getConnexion().getConnectedUser().getEmail(), password.getText() ,command.getClient().getEmail(), "Mise en attente de la commande "+ command.getNumCommande());
+                                    oblCommandsList.remove(command);
+                                    command.setStatut(Commande.Statut.EN_ATTENTE);
+                                    update(command);
+                                    oblCommandsList.add(command);
+                                    commandsTblv.setItems(sortedData);
+                                    alert.close();
+                                }
+                            } else {
+                                alert.close();
+                            }
+                        });
+                        setGraphic(statusBtn);
+                        setText(null);
+                    }
+                }
+            };
+            
+            return statusCell;
+    }
+    
+    
 
     @Override
     public List<String> comboBoxListToString(List<Commande> commands) {

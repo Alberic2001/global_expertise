@@ -62,5 +62,10 @@
             <Font name="System Bold" size="15.0" />
          </font>
       </JFXButton>
+      <JFXButton fx:id="addUserBtn" alignment="CENTER" buttonType="RAISED" layoutX="1018.0" layoutY="631.0" onAction="#handleLoadAddUserWindow" prefHeight="31.0" prefWidth="177.0" style="-fx-background-color: #69F993;" stylesheets="@../style/style.css" text="Créer Utilisateur" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </JFXButton>
    </children>
 </AnchorPane>
