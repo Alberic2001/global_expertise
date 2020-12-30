@@ -11,10 +11,13 @@ import dao.CategorieDao;
 import dao.CommandeDao;
 import dao.ProduitCommandeDao;
 import dao.ProduitDao;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
 import javafx.scene.control.Alert;
@@ -29,6 +32,7 @@ import models.Commande;
 import services.IService;
 import utils.Utils;
 import views.security.ConnexionController;
+import views.style.MailTemplate;
 
 /**
  *
@@ -216,7 +220,12 @@ public class CommandesService implements IService<Commande> {
                                 if(password.getText().isEmpty()){
                                     errorLbl.setText("Remplissez le champ");
                                 } else {
-                                    utils.sendEmail(ConnexionController.getConnexion().getConnectedUser().getEmail(), password.getText() ,command.getClient().getEmail(), "Mise en attente de la commande "+ command.getNumCommande());
+                                    utils.sendEmail(ConnexionController.getConnexion().getConnectedUser().getEmail(), password.getText() ,command.getClient().getEmail(), "Mise en attente de la commande "+ command.getNumCommande(), MailTemplate.getMailContent());
+                                    try {
+                                        utils.notifificate("Mise en attente", "Votre commande a été mise en attente");
+                                    } catch (FileNotFoundException ex) {
+                                        Logger.getLogger(CommandesService.class.getName()).log(Level.SEVERE, null, ex);
+                                    }
                                     oblCommandsList.remove(command);
                                     command.setStatut(Commande.Statut.EN_ATTENTE);
                                     update(command);

@@ -9,8 +9,9 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
-import com.mysql.cj.util.StringUtils;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -22,7 +23,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import models.Adresse;
-import models.Categorie;
 import models.Produit;
 import models.User;
 import services.AddressService;
@@ -120,10 +120,6 @@ public class EditCommandController implements Initializable  {
         return ctrler;
     }
 
-    public static void setCtrler(EditCommandController ctrler) {
-        EditCommandController.ctrler = ctrler;
-    }
-
     public ObservableList<User> getOblUsersList() {
         return oblUsersList;
     }
@@ -166,12 +162,9 @@ public class EditCommandController implements Initializable  {
         productService = new ProductService();
         categoryService = new CategoryService();
         
-        
-        /*
-        userService.getUserDao().setTypeOfSelect("SQL_SELECT_ALL_EMPLOYES");
-        oblVendorList.addAll(userService.comboBoxListToString(userService.listUsers()));
+        oblVendorList.addAll(new ArrayList(Arrays.asList("User1")));
         vendorComb.setItems(oblVendorList);
-        
+        /*
         oblCategoryList.addAll(categoryService.comboBoxListToString(categoryService.list()));
         categoryComb.setItems(oblCategoryList);
         categoryComb.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
