@@ -5,6 +5,7 @@
  */
 package application;
 
+import dao.EmployeDao;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -31,6 +32,10 @@ public class Main extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        
+        EmployeDao dao = new EmployeDao();
+        System.out.println(dao.selectAll());
+        
         launch(args);
     }
     

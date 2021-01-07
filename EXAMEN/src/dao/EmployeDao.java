@@ -70,17 +70,13 @@ public class EmployeDao implements IDao<Employe> {
             PreparedStatement ps =daoMysql.getPstm();
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
-                     Employe employe = new Employe();
-                     employe.setIdEmploye(rs.getInt("id_employe"));
+                Employe employe = new Employe();
+                employe.setIdEmploye(rs.getInt("id_employe"));
                 employe.setNomComplet(rs.getString("nom_complet"));
-                employe.setDateEmbauche(LocalDate.parse(rs.getString("date_commande"), DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+                employe.setDateEmbauche(LocalDate.parse(rs.getString("date_embauche"), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
                 employe.setService(new Service(rs.getInt("id_service"), rs.getString("libelle")));
-                
                 employes.add(employe);
-                    
-                }
-                
-            
+            } 
         } catch(SQLException ex) {
             Logger.getLogger(EmployeDao.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
