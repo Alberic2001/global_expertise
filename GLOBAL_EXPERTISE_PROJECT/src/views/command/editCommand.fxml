@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXComboBox?>
-<?import com.jfoenix.controls.JFXDatePicker?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
@@ -20,79 +18,40 @@
             <Font name="Roboto Bold" size="48.0" />
          </font>
       </Label>
-      <JFXComboBox fx:id="vendorComb" layoutX="62.0" layoutY="58.0" prefHeight="31.0" prefWidth="276.0" promptText="Choix du commercial" />
-      <Label layoutX="358.0" layoutY="63.0" text="Numéro de Commande" textFill="#545871">
-         <font>
-            <Font name="Roboto" size="15.0" />
-         </font>
-      </Label>
-      <JFXTextField fx:id="commandNumberTextField" layoutX="545.0" layoutY="58.0" prefHeight="31.0" prefWidth="236.0" />
-      <JFXDatePicker fx:id="datePicker" editable="false" layoutX="811.0" layoutY="58.0" prefHeight="31.0" prefWidth="236.0" />
-      <JFXComboBox fx:id="categoryComb" editable="true" layoutX="62.0" layoutY="139.0" prefHeight="31.0" prefWidth="269.0" promptText="Catégorie" />
-      <JFXComboBox fx:id="productNameComb" editable="true" layoutX="365.0" layoutY="139.0" prefHeight="31.0" prefWidth="269.0" promptText="Libellé du produit" />
-      <JFXTextField fx:id="quantityTextField" layoutX="665.0" layoutY="139.0" prefHeight="31.0" prefWidth="138.0" promptText="Quantité" />
-      <JFXTextField fx:id="unitPriceTextField" editable="false" layoutX="837.0" layoutY="139.0" prefHeight="31.0" prefWidth="155.0" promptText="PU" />
-      <JFXTextField fx:id="totalPriceTextField" editable="false" layoutX="1027.0" layoutY="139.0" prefHeight="31.0" prefWidth="219.0" promptText="Prix total" />
-      <JFXButton fx:id="addProductBtn" buttonType="RAISED" layoutX="1309.0" layoutY="139.0" onAction="#addProduct" stylesheets="@../style/style.css" text="Ajouter" textFill="WHITE">
+      <JFXTextField fx:id="quantityTextField" layoutX="856.0" layoutY="83.0" prefHeight="31.0" prefWidth="138.0" promptText="Quantité" />
+      <JFXTextField fx:id="totalPriceTextField" editable="false" layoutX="1031.0" layoutY="84.0" prefHeight="31.0" prefWidth="219.0" promptText="Prix total" />
+      <JFXButton fx:id="addProductBtn" buttonType="RAISED" layoutX="1313.0" layoutY="84.0" onAction="#addProduct" stylesheets="@../style/style.css" text="Ajouter" textFill="WHITE">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </JFXButton>
-      <ScrollPane layoutX="62.0" layoutY="214.0" prefHeight="228.0" prefWidth="1324.0">
+      <ScrollPane layoutX="62.0" layoutY="531.0" prefHeight="356.0" prefWidth="1324.0">
          <content>
-            <TableView fx:id="productsTblv" prefHeight="226.0" prefWidth="1322.0" stylesheets="@../style/style.css">
+            <TableView fx:id="productsInCommandTblv" prefHeight="354.0" prefWidth="1322.0" stylesheets="@../style/style.css">
                <columns>
-                  <TableColumn fx:id="codeTblc" prefWidth="200.0" text="Code" />
-                  <TableColumn fx:id="productNameTblc" prefWidth="262.0" text="Libellé" />
-                  <TableColumn fx:id="priceTblc" prefWidth="206.0" text="Prix Unitaire" />
-                  <TableColumn fx:id="quantityTblc" prefWidth="252.0" text="Quantité" />
-                  <TableColumn fx:id="actionsTblc" prefWidth="401.0" text="Fonctionnalités" />
+                  <TableColumn fx:id="codeTblc" prefWidth="162.0" text="Code" />
+                  <TableColumn fx:id="nameTblc" prefWidth="245.0" text="Libellé" />
+                  <TableColumn fx:id="unitPriceTblc" prefWidth="196.0" text="Prix Unitaire" />
+                  <TableColumn fx:id="totalPriceTblc" prefWidth="180.0" text="Prix total" />
+                  <TableColumn fx:id="orderedQtyTblc" prefWidth="170.0" text="Quantité commandée" />
+                  <TableColumn fx:id="categoryTblc" prefWidth="228.0" text="Catégorie" />
+                  <TableColumn fx:id="actionsTblc" prefWidth="140.0" text="Fonctionnalités" />
                </columns>
             </TableView>
          </content>
       </ScrollPane>
-      <ScrollPane layoutX="62.0" layoutY="459.0" prefHeight="193.0" prefWidth="1324.0">
-         <content>
-            <TableView fx:id="usersTblv" prefHeight="191.0" prefWidth="1322.0" stylesheets="@../style/style.css">
-               <columns>
-                  <TableColumn fx:id="nameTblc" prefWidth="193.99996948242188" text="Nom" />
-                  <TableColumn fx:id="surnameTblc" minWidth="0.0" prefWidth="348.9999694824219" text="Prénom(s)" />
-                  <TableColumn fx:id="emailTblc" prefWidth="279.0" text="Email" />
-                  <TableColumn fx:id="numberTblc" prefWidth="188.0" text="Téléphone" />
-                  <TableColumn fx:id="typeTblc" prefWidth="311.0" text="Type" />
-               </columns>
-            </TableView>
-         </content>
-      </ScrollPane>
-      <ScrollPane layoutX="47.0" layoutY="701.0" prefHeight="200.0" prefWidth="1341.0">
-         <content>
-            <TableView fx:id="addressesTblv" prefHeight="198.0" prefWidth="1305.0" stylesheets="@../style/style.css">
-               <columns>
-                  <TableColumn fx:id="roadTblc" prefWidth="235.0" text="Rue" />
-                  <TableColumn fx:id="districtTblc" prefWidth="293.0" text="Quartier" />
-                  <TableColumn fx:id="townTblc" prefWidth="293.0" text="Ville" />
-                  <TableColumn fx:id="detailsTblc" prefWidth="517.0" text="Détails" />
-               </columns>
-            </TableView>
-         </content>
-      </ScrollPane>
-      <JFXButton fx:id="addClientBtn" alignment="CENTER" buttonType="RAISED" disable="true" layoutX="1211.0" layoutY="656.0" onAction="#handleLoadAddClientWindow" prefHeight="31.0" prefWidth="177.0" style="-fx-background-color: #69F993;" stylesheets="@../style/style.css" text="Ajouter Client" textAlignment="CENTER" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="15.0" />
-         </font>
-      </JFXButton>
       <Label fx:id="errorlbl" layoutX="47.0" layoutY="914.0" prefHeight="21.0" prefWidth="668.0" textFill="RED" />
       <JFXButton fx:id="registerCommand" alignment="CENTER" buttonType="RAISED" disable="true" layoutX="1191.0" layoutY="909.0" prefHeight="31.0" prefWidth="196.0" style="-fx-background-color: #69F993;" stylesheets="@../style/style.css" text="Enregistrer Commande" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </JFXButton>
-      <JFXTextField fx:id="clientSearchTextField" layoutX="1107.0" layoutY="58.0" prefHeight="31.0" prefWidth="275.0" promptText="Search Client">
+      <JFXTextField fx:id="productSearchTextField" layoutX="64.0" layoutY="84.0" prefHeight="31.0" prefWidth="275.0" promptText="Search Product">
          <font>
             <Font name="Roboto" size="15.0" />
          </font>
       </JFXTextField>
-      <ImageView fitHeight="21.0" fitWidth="21.0" layoutX="1353.0" layoutY="62.0">
+      <ImageView fitHeight="21.0" fitWidth="21.0" layoutX="310.0" layoutY="88.0">
          <image>
             <Image url="@../images/search.png" />
          </image>
@@ -107,5 +66,18 @@
             <Font name="System Bold" size="15.0" />
          </font>
       </JFXButton>
+      <ScrollPane layoutX="62.0" layoutY="146.0" prefHeight="309.0" prefWidth="1341.0">
+         <content>
+            <TableView fx:id="productsTblv" prefHeight="307.0" prefWidth="1339.0" stylesheets="@../style/style.css">
+               <columns>
+                  <TableColumn fx:id="productCodeTblc" prefWidth="277.0" text="Code" />
+                  <TableColumn fx:id="productNameTblc" prefWidth="436.0" text="Libellé" />
+                  <TableColumn fx:id="productPriceTblc" prefWidth="232.0" text="Prix" />
+                  <TableColumn fx:id="productQuantityTblc" prefWidth="172.0" text="Quantité" />
+                  <TableColumn fx:id="productActionsTblc" prefWidth="221.0" text="Fonctionnalités" />
+               </columns>
+            </TableView>
+         </content>
+      </ScrollPane>
    </children>
 </AnchorPane>

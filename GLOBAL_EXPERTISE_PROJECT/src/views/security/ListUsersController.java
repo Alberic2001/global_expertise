@@ -86,6 +86,8 @@ public class ListUsersController implements Initializable {
     private JFXButton addEmployeeBtn;
     @FXML
     private JFXButton addClientBtn;
+    @FXML
+    private JFXButton editCommandBtn;
 
     public User getUser() {
         return user;
@@ -197,6 +199,7 @@ public class ListUsersController implements Initializable {
         });
 
         usersTblv.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            editCommandBtn.setDisable(false);
             addAddressBtn.setDisable(false);
             oblAddressList.clear();
             if(addressService.getAdresseDao().selectAllForOne(newValue.getId())!=null)
@@ -229,6 +232,11 @@ public class ListUsersController implements Initializable {
     @FXML
     private void handleLoadAddClientWindow(ActionEvent event) throws IOException {
         userService.getUtils().loadWindow(usersTblv, "security/createClient");
+    }
+
+    @FXML
+    private void handleLoadEditCOmmandWindow(ActionEvent event) throws IOException {
+        userService.getUtils().loadWindow(usersTblv, "command/editCommand");
     }
 
 }

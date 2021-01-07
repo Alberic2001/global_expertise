@@ -45,8 +45,6 @@ public class DashboardController implements Initializable {
     @FXML
     private AnchorPane adminFunctionsPane;
     @FXML
-    private JFXButton userCreateButton;
-    @FXML
     private JFXButton categoriesAndProductsListing;
     @FXML
     private AnchorPane commandFunctionsPane;
@@ -100,7 +98,6 @@ public class DashboardController implements Initializable {
         connectedUser = null;
     }
 
-    @FXML
     private void loadUserCreationView(ActionEvent event) throws IOException {
         try {
             this.loadView("createuser", viewLoader);
